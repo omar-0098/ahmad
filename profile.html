@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حسابي | أحمد رمضان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#17255E; --teal:#0E5C63; --amber:#F2A900; --mist:#DCE8F5; --ink:#141B3D; --paper:#F6F9FD; --muted:#5B6585;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:'Cairo',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  .top{background:var(--navy);color:#fff}
+  .top .in{max-width:1000px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-weight:900;font-size:1.25rem}
+  .back{display:inline-flex;align-items:center;gap:8px;font-weight:600;opacity:.9}
+  .back:hover{opacity:1}
+  .back svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+  main{max-width:1000px;margin:0 auto;padding:36px 20px 70px}
+
+  /* بطاقة الطالب */
+  .idcard{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 14px 40px rgba(23,37,94,.12);display:grid;grid-template-columns:230px 1fr}
+  .who{background:var(--teal);color:#fff;padding:32px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative}
+  .who::after{content:"";position:absolute;inset-block:0;inset-inline-end:0;width:8px;background:var(--amber)}
+  .avatar{width:96px;height:96px;border-radius:50%;background:var(--amber);color:var(--navy);display:grid;place-items:center;font-size:2.6rem;font-weight:900}
+  .who h1{font-size:1.25rem;line-height:1.5}
+  .grade{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 14px;font-weight:600;font-size:.95rem}
+  .since{font-size:.85rem;opacity:.8;margin-top:auto}
+
+  .info{padding:30px 34px}
+  .info h2{font-size:1.15rem;color:var(--navy);margin-bottom:18px}
+  .rows{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+  .row{border-bottom:1px solid var(--mist);padding-bottom:10px}
+  .row span{display:block;color:var(--muted);font-size:.85rem}
+  .row b{display:block;font-size:1.05rem;margin-top:2px;word-break:break-word}
+  .row b.num{direction:ltr;text-align:right}
+
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .btn{font:inherit;font-weight:700;border:0;border-radius:12px;padding:12px 22px;cursor:pointer;transition:transform .15s,background .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.main{background:var(--navy);color:#fff}
+  .btn.out{background:#fff;color:#B3261E;box-shadow:inset 0 0 0 2px #B3261E}
+  .btn.out:hover{background:#B3261E;color:#fff}
+  .btn:focus-visible,.back:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+  /* كورساتي */
+  .mine{margin-top:34px}
+  .mine h2{font-size:1.15rem;color:var(--navy);margin-bottom:12px}
+  .empty{background:#fff;border:2px dashed var(--mist);border-radius:16px;padding:30px;text-align:center;color:var(--muted)}
+  .empty a{display:inline-block;margin-top:12px;background:var(--amber);color:var(--navy);font-weight:700;padding:10px 20px;border-radius:10px}
+
+  .btn.adm{background:var(--amber);color:var(--navy)}
+  .pwov{position:fixed;inset:0;background:rgba(20,27,61,.7);display:none;place-items:center;z-index:50;padding:20px}
+  .pwov.on{display:grid}
+  .pwbox{background:#fff;border-radius:18px;padding:28px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .pwbox h3{color:var(--navy);margin-bottom:6px}
+  .pwbox p{color:var(--muted);font-size:.9rem;margin-bottom:14px}
+  .pwbox input{width:100%;font:inherit;padding:12px 14px;border:2px solid var(--mist);border-radius:10px;direction:ltr}
+  .pwbox input:focus{outline:3px solid var(--amber);border-color:transparent}
+  .pwbox .e{color:#B3261E;font-size:.88rem;min-height:1.4em;margin-top:8px}
+  .pwbox .r{display:flex;gap:10px;margin-top:10px}
+  .state{text-align:center;padding:90px 20px;color:var(--muted);font-weight:600}
+  .hide{display:none!important}
+
+  @media (max-width:760px){
+    .idcard{grid-template-columns:1fr}
+    .who{flex-direction:row;flex-wrap:wrap;justify-content:center;padding:24px 18px}
+    .who::after{inset-block:auto 0;inset-inline:0;width:auto;height:6px}
+    .since{width:100%;margin-top:0}
+    .rows{grid-template-columns:1fr}
+    .info{padding:24px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="in">
+    <a class="brand" href="index.html">أحمد رمضان</a>
+    <a class="back" href="index.html">
+      الرئيسية
+      <svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</header>
+
+<main>
+  <p class="state" id="loading">جاري تحميل بياناتك...</p>
+
+  <div id="content" class="hide">
+    <section class="idcard">
+      <div class="who">
+        <div class="avatar" id="av"></div>
+        <h1 id="nm"></h1>
+        <span class="grade" id="gr"></span>
+        <span class="since" id="sn"></span>
+      </div>
+
+      <div class="info">
+        <h2>بيانات الحساب</h2>
+        <div class="rows">
+          <div class="row"><span>اسم الطالب</span><b id="f-student"></b></div>
+          <div class="row"><span>اسم ولي الأمر</span><b id="f-father"></b></div>
+          <div class="row"><span>رقم الطالب (اسم المستخدم)</span><b class="num" id="f-sp"></b></div>
+          <div class="row"><span>رقم ولي الأمر</span><b class="num" id="f-fp"></b></div>
+          <div class="row"><span>رقم الوالدة</span><b class="num" id="f-mp"></b></div>
+          <div class="row"><span>المحافظة</span><b id="f-gov"></b></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn adm hide" id="usersBtn" type="button">المستخدمون</button>
+          <button class="btn out" id="logout" type="button">تسجيل الخروج</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="mine">
+      <h2>كورساتي</h2>
+      <div class="empty">
+        لسه مشتركتش في أي كورس.
+        <br><a href="index.html#courses">شوف الكورسات</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="pwov" id="pwov">
+  <form class="pwbox" id="pwf">
+    <h3>المستخدمون</h3>
+    <p>اكتب كلمة المرور عشان تفتح لوحة التحكم.</p>
+    <input type="password" id="apw" placeholder="كلمة المرور" autocomplete="current-password" required>
+    <div class="e" id="aerr" role="alert"></div>
+    <div class="r"><button class="btn main" type="submit" id="agb">فتح</button><button class="btn" type="button" id="acx" style="background:var(--mist)">إلغاء</button></div>
+  </form>
+</div>
+
+<script type="module">
+  import { auth, db } from "./js/firebase.js";
+  import { onAuthStateChanged, signOut, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  const ADMIN_EMAIL = '01028604523@ahmed.app';
+  const $ = id => document.getElementById(id);
+  const loading = $('loading'), content = $('content');
+
+  onAuthStateChanged(auth, async user => {
+    // مش مسجّل دخول؟ نرجّعه للصفحة الرئيسية
+    if (!user) { location.replace('index.html'); return; }
+
+    const isAdmin = (user.email || '').toLowerCase() === ADMIN_EMAIL;
+    if (isAdmin) $('usersBtn').classList.remove('hide');
+
+    try {
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      if (!snap.exists() && !isAdmin) { loading.textContent = 'مفيش بيانات محفوظة للحساب ده.'; return; }
+      const d = snap.exists() ? snap.data() : { student: 'أحمد رمضان', grade: 'المسؤول', father: user.email };
+
+      $('av').textContent = (d.student || '?').trim().charAt(0);
+      $('nm').textContent = d.student || '';
+      $('gr').textContent = d.grade || '';
+      if (d.createdAt?.toDate) {
+        $('sn').textContent = 'انضم في ' + d.createdAt.toDate().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+      $('f-student').textContent = d.student || '-';
+      $('f-father').textContent  = d.father || '-';
+      $('f-sp').textContent      = d.studentPhone || '-';
+      $('f-fp').textContent      = d.fatherPhone || '-';
+      $('f-mp').textContent      = d.motherPhone || '-';
+      $('f-gov').textContent     = d.governorate || '-';
+
+      loading.classList.add('hide');
+      content.classList.remove('hide');
+    } catch (ex) {
+      console.error(ex);
+      loading.textContent = 'حصلت مشكلة في تحميل بياناتك. حدّث الصفحة وجرّب تاني.';
+    }
+  });
+
+  const ov = $('pwov');
+  $('usersBtn').addEventListener('click', () => { $('apw').value=''; $('aerr').textContent=''; ov.classList.add('on'); $('apw').focus(); });
+  $('acx').addEventListener('click', () => ov.classList.remove('on'));
+  $('pwf').addEventListener('submit', async e => {
+    e.preventDefault();
+    const u = auth.currentUser, b = $('agb');
+    if (!u || (u.email || '').toLowerCase() !== ADMIN_EMAIL) return;
+    b.disabled = true; $('aerr').textContent = '';
+    try {
+      await reauthenticateWithCredential(u, EmailAuthProvider.credential(u.email, $('apw').value));
+      sessionStorage.setItem('adm_ok', String(Date.now()));
+      location.href = 'admin.html';
+    } catch (ex) {
+      $('aerr').textContent = 'كلمة المرور غلط.';
+      b.disabled = false;
+    }
+  });
+
+  $('logout').addEventListener('click', async () => {
+    await signOut(auth);
+    location.href = 'index.html';
+  });
+</script>
+</body>
+</html>

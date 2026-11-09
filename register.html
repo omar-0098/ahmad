@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حساب جديد | أحمد رمضان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/register.css">
+</head>
+<body>
+<main class="reg">
+
+  <aside class="side">
+    <img src="main lofin.png" alt="">
+  </aside>
+
+  <section class="formside">
+    <form id="regForm" novalidate>
+      <small class="eyebrow">تسجيل طالب جديد</small>
+      <h1>أهلًا بيك يا بطل!</h1>
+      <p class="sub">رحلتك بتبدأ من هنا. عرّفنا بنفسك شوية.</p>
+
+      <h3>بيانات الطالب</h3>
+      <div class="grid g2">
+        <label>اسم الطالب<input name="student" required placeholder="اكتب الاسم بالكامل"></label>
+        <label>اسم ولي الأمر<input name="father" required placeholder="اكتب الاسم بالكامل"></label>
+      </div>
+
+      <h3>أرقام التواصل</h3>
+      <div class="grid g3">
+        <label>رقم الطالب<input name="sp" type="tel" inputmode="numeric" required pattern="01[0-9]{9}" placeholder="مثال: 010 0000 0000" dir="ltr"></label>
+        <label>رقم ولي الأمر<input name="fp" type="tel" inputmode="numeric" required pattern="01[0-9]{9}" placeholder="مثال: 010 0000 0000" dir="ltr"></label>
+        <label>رقم الوالدة<input name="mp" type="tel" inputmode="numeric" pattern="01[0-9]{9}" placeholder="مثال: 010 0000 0000" dir="ltr"></label>
+      </div>
+
+      <h3>بيانات الدراسة</h3>
+      <div class="grid g2">
+        <label>المحافظة
+          <select name="gov" required>
+            <option value="">اختار المحافظة</option>
+            <option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option><option>القليوبية</option>
+            <option>الفيوم</option><option>بني سويف</option><option>المنيا</option><option>أسيوط</option>
+            <option>سوهاج</option><option>قنا</option><option>الأقصر</option><option>أسوان</option>
+            <option>الشرقية</option><option>الدقهلية</option><option>الغربية</option><option>المنوفية</option>
+            <option>كفر الشيخ</option><option>البحيرة</option><option>دمياط</option><option>بورسعيد</option>
+            <option>الإسماعيلية</option><option>السويس</option><option>مطروح</option><option>البحر الأحمر</option>
+            <option>شمال سيناء</option><option>جنوب سيناء</option><option>الوادي الجديد</option>
+          </select>
+        </label>
+        <label>الصف الدراسي
+          <select name="grade" required>
+            <option value="">اختار الصف</option>
+            <option>الأول الثانوي</option><option>الثاني الثانوي</option><option>الثالث الثانوي</option>
+          </select>
+        </label>
+      </div>
+
+      <h3>أمّن حسابك</h3>
+      <label>كلمة المرور
+        <div class="pw">
+          <input name="pw" id="pw" type="password" required minlength="8" placeholder="٨ حروف على الأقل">
+          <button type="button" id="tg">
+            <svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>إظهار</span>
+          </button>
+        </div>
+      </label>
+
+      <p class="err" id="err" role="alert"></p>
+
+      <div class="submit">
+        <p>عندك حساب؟ <a href="login.html">سجّل دخول</a><br>بإنشاء الحساب فأنت موافق على <a href="#">الشروط والخصوصية</a>.</p>
+        <button class="go" type="submit">إنشاء حسابي
+          <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<div class="ov" id="ov" aria-live="polite">
+  <div class="ovbox">
+    <div class="spin" id="spin"></div>
+    <svg class="ok" id="ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m7 12.5 3.5 3.5L17 9"/></svg>
+    <h2 id="ovt">جاري إنشاء حسابك...</h2>
+    <p id="ovp">استنى ثواني بسيطة.</p>
+  </div>
+</div>
+<style>
+  .ov{position:fixed;inset:0;background:rgba(20,27,61,.72);display:none;align-items:center;justify-content:center;z-index:99;font-family:'Cairo',sans-serif}
+  .ov.on{display:flex}
+  .ovbox{background:#fff;border-radius:20px;padding:36px 44px;text-align:center;max-width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .ovbox h2{margin:14px 0 4px;color:#17255E;font-size:1.4rem}
+  .ovbox p{margin:0;color:#667}
+  .spin{width:54px;height:54px;margin:0 auto;border-radius:50%;border:5px solid #DCE8F5;border-top-color:#0E5C63;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .ok{display:none;width:64px;height:64px;margin:0 auto;fill:#0E5C63;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:pop .4s ease}
+  .ov.done .spin{display:none}.ov.done .ok{display:block}
+  @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+</style>
+
+<script type="module">
+  import { auth, db } from "./js/firebase.js";
+  import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  /* إظهار / إخفاء كلمة المرور */
+  const pw = document.getElementById('pw'), tg = document.getElementById('tg');
+  tg.addEventListener('click', () => {
+    const show = pw.type === 'password';
+    pw.type = show ? 'text' : 'password';
+    tg.querySelector('span').textContent = show ? 'إخفاء' : 'إظهار';
+  });
+
+  const f = document.getElementById('regForm'), err = document.getElementById('err');
+  const btn = f.querySelector('.go');
+  const ov = document.getElementById('ov'), ovt = document.getElementById('ovt'), ovp = document.getElementById('ovp');
+
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const bad = [...f.elements].find(x => x.name && !x.checkValidity());
+    if (bad) {
+      err.textContent = bad.name === 'pw' ? 'كلمة المرور لازم تكون ٨ حروف على الأقل.'
+        : /p$/.test(bad.name) ? 'اكتب رقم موبايل صحيح (١١ رقم بيبدأ بـ 01).'
+        : 'من فضلك كمّل كل الحقول المطلوبة.';
+      bad.focus(); return;
+    }
+    err.textContent = '';
+    btn.disabled = true;
+    ov.classList.remove('done'); ov.classList.add('on');
+    ovt.textContent = 'جاري إنشاء حسابك...'; ovp.textContent = 'استنى ثواني بسيطة.';
+
+    const d = Object.fromEntries(new FormData(f));
+    const email = `${d.sp}@ahmed.app`;   // إيميل شكلي من رقم الطالب
+    const t0 = Date.now();
+
+    try {
+      // 1) إنشاء الحساب (الباسورد بيتشفّر عند Firebase)
+      const cred = await createUserWithEmailAndPassword(auth, email, d.pw);
+
+      // 2) حفظ باقي البيانات (من غير الباسورد)
+      await setDoc(doc(db, 'users', cred.user.uid), {
+        student: d.student,
+        father:  d.father,
+        studentPhone: d.sp,
+        fatherPhone:  d.fp,
+        motherPhone:  d.mp || '',
+        governorate:  d.gov,
+        grade:        d.grade,
+        createdAt:    serverTimestamp()
+      });
+
+      // 3) نصبّر الطالب حوالي ٤-٥ ثواني قبل رسالة النجاح
+      await wait(Math.max(0, 4500 - (Date.now() - t0)));
+      ov.classList.add('done');
+      ovt.textContent = 'تم إنشاء الحساب بنجاح!';
+      ovp.textContent = 'هنوديك للصفحة الرئيسية...';
+
+      // 4) نحوّله للصفحة الرئيسية
+      await wait(2500);
+      location.href = 'index.html';
+    } catch (ex) {
+      ov.classList.remove('on');
+      err.textContent =
+        ex.code === 'auth/email-already-in-use' ? 'رقم الطالب ده مسجّل قبل كده.'
+        : ex.code === 'auth/weak-password'      ? 'كلمة المرور ضعيفة.'
+        : /api-key/.test(ex.code || '')         ? 'الـ apiKey في js/firebase.js غلط.'
+        : ex.code === 'permission-denied'       ? 'قواعد Firestore مش بتسمح بالكتابة.'
+        : 'حصلت مشكلة، حاول تاني.';
+      console.error(ex);
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

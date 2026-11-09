@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الاشتراك في الكورس | أحمد رمضان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/style.css">
+<style>
+main.sb{--ink:#16213E;--board:#1E4A42;--marker:#FFC83D;--pen:#D7263D;--muted:#5B6678;--paper:#F6F3EA;--ok:#1E8E4E;
+  font-family:'Cairo',sans-serif;color:var(--ink);line-height:1.75;min-height:75vh;padding-bottom:70px;
+  background:var(--paper);background-image:radial-gradient(#d9d3c0 1px,transparent 1.4px);background-size:22px 22px}
+main.sb *{box-sizing:border-box}
+.sb .wrap{max-width:1080px;margin-inline:auto;padding-inline:20px}
+.sb .hide{display:none!important}
+.sb button{font:inherit;cursor:pointer;color:var(--ink)}
+.sb .back{display:inline-block;margin:22px 0 14px;font-weight:700;color:var(--muted);text-decoration:underline}
+
+/* ===== بطاقة الكورس (تذكرة) ===== */
+.sb .pass{display:grid;grid-template-columns:200px 1fr auto;background:#fff;border:2px solid var(--ink);border-radius:18px;box-shadow:-5px 5px 0 var(--ink);overflow:hidden;position:relative}
+.sb .pass .im{background:var(--board) center/cover;min-height:130px;position:relative}
+.sb .pass .im::after{content:"";position:absolute;inset-block:0;inset-inline-end:-1px;border-inline-end:3px dashed #fff;opacity:.9}
+.sb .pass .tx{padding:18px 22px}
+.sb .pass .tx small{color:var(--muted);font-weight:700}
+.sb .pass h1{font-size:1.45rem;font-weight:900;line-height:1.4;margin:2px 0 4px}
+.sb .pass .tx p{color:var(--muted);font-size:.93rem}
+.sb .pass .pr{padding:18px 26px;background:var(--marker);display:grid;place-content:center;text-align:center;border-inline-start:2px solid var(--ink)}
+.sb .pass .pr b{font-size:2rem;font-weight:900;line-height:1.1;display:block}
+.sb .pass .pr s{color:#7a5b00;font-weight:700}
+
+/* ===== الخطوات ===== */
+.sb .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:34px 0 30px;position:relative}
+.sb .steps::before{content:"";position:absolute;top:22px;inset-inline:12.5%;border-top:3px dashed #b9b29a}
+.sb .st{text-align:center;position:relative;font-weight:700;font-size:.92rem;color:var(--muted)}
+.sb .st i{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 6px;border-radius:50%;border:2px solid var(--ink);background:#fff;font-style:normal;font-size:1.25rem}
+.sb .st.on{color:var(--ink)}.sb .st.on i{background:var(--marker);box-shadow:-3px 3px 0 var(--ink)}
+.sb .st.done i{background:var(--ink);color:#fff}
+.sb .st small{display:block;font-weight:600;color:var(--muted);font-size:.78rem}
+
+/* ===== التخطيط ===== */
+.sb .grid{display:grid;grid-template-columns:1fr 330px;gap:26px;align-items:start}
+.sb h2{font-size:1.25rem;font-weight:900;margin-bottom:12px}
+.sb .newc{background:var(--board);color:#fff;border-radius:18px;padding:22px;position:sticky;top:16px;overflow:hidden;isolation:isolate}
+.sb .newc::before{content:"";position:absolute;z-index:-1;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);top:-70px;inset-inline-end:-60px}
+.sb .newc h3{font-size:1.15rem;font-weight:900;margin-bottom:6px}
+.sb .newc p{color:#d4e5df;font-size:.93rem;margin-bottom:14px}
+.sb .newc ul{list-style:none;padding:0;margin:0 0 16px;font-size:.9rem;display:grid;gap:6px}
+.sb .newc li::before{content:"✓";color:var(--marker);font-weight:900;margin-inline-end:8px}
+.sb .cta{display:block;width:100%;text-align:center;border:2px solid var(--ink);border-radius:12px;background:var(--marker);padding:11px 16px;font-weight:900;box-shadow:-4px 4px 0 var(--ink);transition:.15s;text-decoration:none}
+.sb .cta:hover:not(:disabled){transform:translate(-2px,2px);box-shadow:-2px 2px 0 var(--ink)}
+.sb .cta:disabled{opacity:.55;cursor:default}
+.sb .note{font-size:.85rem;margin-top:10px;color:#d4e5df}
+
+/* ===== الفواتير (تذاكر) ===== */
+.sb .list{display:grid;gap:16px}
+.sb .empty{background:#fff;border:2px dashed var(--ink);border-radius:16px;padding:30px;text-align:center;font-weight:700;color:var(--muted)}
+.sb .tk{display:grid;grid-template-columns:96px 1fr;background:#fff;border:2px solid var(--ink);border-radius:16px;overflow:hidden;position:relative;box-shadow:-4px 4px 0 var(--ink)}
+.sb .tk.cur{box-shadow:-4px 4px 0 var(--marker),-4px 4px 0 2px var(--ink)}
+.sb .stub{background:#F3EFE0;border-inline-end:3px dashed var(--ink);display:grid;place-content:center;text-align:center;padding:10px 6px}
+.sb .stub small{font-size:.72rem;color:var(--muted);font-weight:700}
+.sb .stub b{font-size:1.08rem;font-weight:900;direction:ltr;letter-spacing:.5px}
+.sb .tb{padding:14px 18px}
+.sb .tb .r1{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.sb .tb h4{font-size:1.02rem;font-weight:800;line-height:1.5}
+.sb .tb .d{color:var(--muted);font-size:.85rem}
+.sb .amt{font-size:1.3rem;font-weight:900;margin:6px 0}
+.sb .chip{display:inline-block;border:2px solid var(--ink);border-radius:999px;padding:0 14px;font-weight:800;font-size:.8rem}
+.sb .chip.unpaid{background:#fde1e5}.sb .chip.review{background:var(--marker)}.sb .chip.paid{background:#d6f1df}.sb .chip.rejected{background:#e6e6e6}
+.sb .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.sb .acts button,.sb .acts a{border:2px solid var(--ink);border-radius:10px;padding:5px 18px;font-weight:800;background:#fff;text-decoration:none;font-size:.9rem}
+.sb .acts .pay{background:var(--ink);color:#fff}
+.sb .stamp{position:absolute;inset-inline-start:22px;bottom:14px;transform:rotate(-12deg);border:3px solid var(--ok);color:var(--ok);border-radius:10px;padding:0 14px;font-weight:900;font-size:1.2rem;opacity:.35;pointer-events:none}
+
+/* ===== نافذة الدفع ===== */
+.sb .ov{position:fixed;inset:0;background:rgba(22,33,62,.7);display:none;place-items:center;z-index:300;padding:18px}
+.sb .ov.on{display:grid}
+.sb .bx{background:#fff;border:2px solid var(--ink);border-radius:20px;max-width:520px;width:100%;max-height:90vh;overflow:auto;padding:24px}
+.sb .bx h3{font-size:1.3rem;font-weight:900}
+.sb .bx .tot{background:var(--marker);border:2px solid var(--ink);border-radius:12px;padding:8px 16px;margin:12px 0;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+.sb .bx .tot b{font-size:1.5rem}
+.sb .mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.sb .mt label{border:2px solid var(--ink);border-radius:12px;padding:10px;text-align:center;font-weight:800;cursor:pointer;background:#fff}
+.sb .mt input{display:none}
+.sb .mt label:has(input:checked){background:var(--ink);color:#fff;box-shadow:-3px 3px 0 var(--marker)}
+.sb .num{display:flex;gap:8px;align-items:center;justify-content:space-between;background:#F3EFE0;border:2px dashed var(--ink);border-radius:12px;padding:8px 14px;margin-bottom:12px}
+.sb .num b{direction:ltr;font-size:1.15rem;letter-spacing:.5px}
+.sb .num button{border:2px solid var(--ink);border-radius:8px;background:#fff;padding:2px 12px;font-weight:700}
+.sb .bx ol{padding-inline-start:20px;margin:0 0 12px;color:#34405a;font-size:.93rem}
+.sb .bx input[type=text]{width:100%;border:2px solid var(--ink);border-radius:10px;padding:9px 12px;font:inherit;margin:4px 0 12px}
+.sb .bx .row{display:flex;gap:10px;flex-wrap:wrap}
+.sb .bx .row button{flex:1}
+.sb .bx .x{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px;font-weight:800}
+.sb .err{color:var(--pen);font-weight:700;margin-bottom:8px}
+.sb .help{margin-top:34px;text-align:center;color:var(--muted);font-weight:700}
+.sb .help a{color:var(--ink);text-decoration:underline}
+.sb .lock{background:#fff;border:2px solid var(--ink);border-radius:18px;padding:40px 20px;text-align:center;font-weight:700;margin-top:30px}
+.sb .lock a{display:inline-block;margin-top:12px;border:2px solid var(--ink);border-radius:12px;background:var(--marker);padding:8px 24px;font-weight:900;text-decoration:none;color:var(--ink)}
+@media (max-width:860px){.sb .grid{grid-template-columns:1fr}.sb .newc{position:static;order:-1}.sb .pass{grid-template-columns:1fr}.sb .pass .im{min-height:150px}.sb .pass .im::after{inset:auto 0 -1px;border:0;border-bottom:3px dashed #fff}.sb .pass .pr{border-inline-start:0;border-top:2px solid var(--ink)}}
+@media (max-width:520px){.sb .tk{grid-template-columns:1fr}.sb .stub{border-inline-end:0;border-bottom:3px dashed var(--ink);grid-auto-flow:column;gap:8px;place-content:center}.sb .st small{display:none}}
+</style>
+</head>
+<body>
+<header id="top">
+  <div class="container bar">
+    <a class="brand" href="index.html">أحمد رمضان<small>لغة عربية · ثانوية عامة</small></a>
+    <div class="srch" id="srch">
+      <input id="q" type="search" placeholder="ابحث عن كورس" aria-label="ابحث عن كورس">
+      <button type="button" id="sb" aria-label="بحث"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+    </div>
+    <nav class="acct"><a href="login.html">تسجيل الدخول</a><a href="register.html" class="btn">حساب جديد</a></nav>
+  </div>
+</header>
+
+<main class="sb">
+  <div class="wrap" id="app"><p class="lock">جاري التحميل...</p></div>
+</main>
+
+<div class="sb"><div class="ov" id="ov"><div class="bx" id="bx" role="dialog" aria-modal="true"></div></div></div>
+
+<script src="js/script.js"></script>
+<script type="module" src="js/auth-nav.js"></script>
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { doc, getDoc, addDoc, updateDoc, collection, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+/* ====== غيّر الأرقام دي لأرقامك الحقيقية ====== */
+const PAY = {
+  vodafone: { name: 'فودافون كاش', num: '01000000000' },
+  insta:    { name: 'إنستاباي',    num: 'yourname@instapay' }
+};
+const WA = '201000000000';
+/* ================================================ */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf = n => Number(n).toLocaleString('ar-EG');
+const fdate = d => d.toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).replace('،', '') + ' • ' + d.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+const STAT = { unpaid: 'لم يتم الدفع', review: 'بنراجع الدفع', paid: 'تم الدفع ✅', rejected: 'مرفوضة' };
+const cid = new URLSearchParams(location.search).get('id');
+const app = $('app');
+let user, course, invs = [];
+
+const dt = i => (i.createdAt && i.createdAt.toDate) ? i.createdAt.toDate() : (i.localAt ? new Date(i.localAt) : new Date());
+
+function render(){
+  const mine = invs.filter(i => i.courseId === cid);
+  const paid = mine.find(i => i.status === 'paid');
+  const open = mine.find(i => i.status === 'unpaid' || i.status === 'review');
+  const step = paid ? 4 : open ? (open.status === 'review' ? 3 : 2) : 1;
+  const free = !(course.price > 0);
+  const hasOld = course.oldPrice && course.oldPrice > course.price;
+  const S = (n, ic, t, s) => `<div class="st ${step === n ? 'on' : step > n ? 'done' : ''}"><i>${step > n ? '✓' : ic}</i>${t}<small>${s}</small></div>`;
+
+  app.innerHTML = `
+    <a class="back" href="index.html#courses">← رجوع للكورسات</a>
+    <section class="pass">
+      <div class="im" ${course.image ? `style="background-image:url('${esc(course.image)}')"` : ''}></div>
+      <div class="tx"><small>تذكرتك للكورس</small><h1>${esc(course.title)}</h1>
+        <p>${esc((course.details || course.desc || '').replace(/\s+/g, ' ').trim().slice(0, 120))}</p></div>
+      <div class="pr">${free ? '<b>مجاني</b>' : `<b>${nf(course.price)}</b><span>جنيه</span>${hasOld ? `<s>بدل ${nf(course.oldPrice)}</s>` : ''}`}</div>
+    </section>
+
+    <div class="steps">
+      ${S(1, '🧾', 'أصدر فاتورة', 'بضغطة واحدة')}${S(2, '💸', 'حوّل المبلغ', 'فودافون كاش / إنستاباي')}
+      ${S(3, '🔎', 'ابعت رقم العملية', 'وإحنا بنراجع')}${S(4, '🎓', 'ابدأ المذاكرة', 'الكورس يتفتح لك')}
+    </div>
+
+    <div class="grid">
+      <section>
+        <h2>🧾 فواتيرك</h2>
+        <div class="list">${invs.length ? invs.map(tkHTML).join('') : '<div class="empty">لسه معندكش فواتير. أصدر أول فاتورة من الكارت الجانبي 👉</div>'}</div>
+      </section>
+      <aside class="newc">
+        <h3>${paid ? 'انت مشترك في الكورس 🎉' : 'فاتورة جديدة'}</h3>
+        ${free ? '<p>الكورس ده مجاني، مفيش اشتراك ولا دفع.</p><a class="cta" href="cours.html?id=' + esc(cid) + '">ادخل الكورس</a>'
+        : paid ? '<p>تمام الدفع اتأكد. تقدر تدخل المحاضرات دلوقتي.</p><a class="cta" href="cours.html?id=' + esc(cid) + '">ادخل الكورس</a>'
+        : `<p>${esc(course.title)}</p>
+           <ul><li>المبلغ: <b>${nf(course.price)} جنيه</b></li><li>الدفع بتحويل على محفظة أو إنستاباي</li><li>الكورس بيتفتح بعد مراجعة التحويل</li></ul>
+           <button type="button" class="cta" id="mk" ${open ? 'disabled' : ''}>${open ? 'عندك فاتورة مفتوحة' : '🧾 إصدار فاتورة'}</button>
+           <p class="note" id="mkn">${open ? 'كمّل دفع الفاتورة المفتوحة من القايمة.' : ''}</p>`}
+      </aside>
+    </div>
+    <p class="help">محتاج مساعدة في الدفع؟ <a href="https://wa.me/${WA}" target="_blank" rel="noopener">كلمنا على واتساب</a></p>`;
+}
+
+function tkHTML(i){
+  const cur = i.courseId === cid;
+  return `<article class="tk ${cur ? 'cur' : ''}">
+    <div class="stub"><small>رقم الفاتورة</small><b>#${esc(i.serial)}</b></div>
+    <div class="tb">
+      <div class="r1"><div><h4>${esc(i.courseTitle)}</h4><div class="d">${fdate(dt(i))}</div></div><span class="chip ${esc(i.status)}">${STAT[i.status] || esc(i.status)}</span></div>
+      <div class="amt">${nf(i.price)} جنيه</div>
+      ${i.refNo ? `<div class="d">رقم العملية اللي بعتّه: <b dir="ltr">${esc(i.refNo)}</b></div>` : ''}
+      <div class="acts">
+        ${i.status === 'unpaid' ? `<button type="button" class="pay" data-pay="${esc(i.id)}">💸 ادفع الفاتورة</button>` : ''}
+        ${i.status === 'paid' ? `<a href="cours.html?id=${esc(i.courseId)}">ادخل الكورس</a>` : ''}
+      </div>
+    </div>${i.status === 'paid' ? '<span class="stamp">مدفوعة</span>' : ''}</article>`;
+}
+
+/* ===== نافذة الدفع ===== */
+const ov = $('ov'), bx = $('bx');
+const closeOv = () => ov.classList.remove('on');
+ov.addEventListener('click', e => { if (e.target === ov || e.target.closest('[data-x]')) closeOv(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOv(); });
+
+function openPay(inv){
+  const method = 'vodafone';
+  const paint = m => {
+    bx.innerHTML = `<h3>💸 دفع الفاتورة #${esc(inv.serial)}</h3>
+      <div class="tot"><span>المطلوب</span><b>${nf(inv.price)} جنيه</b></div>
+      <div class="mt">${Object.entries(PAY).map(([k, v]) => `<label><input type="radio" name="m" value="${k}" ${k === m ? 'checked' : ''}>${v.name}</label>`).join('')}</div>
+      <div class="num"><b>${esc(PAY[m].num)}</b><button type="button" data-copy>نسخ</button></div>
+      <ol><li>حوّل <b>${nf(inv.price)} جنيه</b> على الرقم اللي فوق.</li><li>انسخ <b>رقم العملية</b> من رسالة التأكيد (أو آخر ٤ أرقام من رقم موبايلك اللي حوّلت منه).</li><li>اكتبه هنا واضغط «تم التحويل».</li></ol>
+      <label>رقم العملية / رقم المحفظة اللي حوّلت منها<input type="text" id="ref" inputmode="text" autocomplete="off" placeholder="مثال: 4567891230"></label>
+      <div class="err" id="err"></div>
+      <div class="row"><button type="button" class="cta" id="done">✅ تم التحويل</button><button type="button" class="x" data-x>إلغاء</button></div>`;
+  };
+  paint(method);
+  ov.classList.add('on');
+  let cur = method;
+  bx.onchange = e => { if (e.target.name === 'm') { const keep = $('ref').value; cur = e.target.value; paint(cur); $('ref').value = keep; } };
+  bx.onclick = async e => {
+    if (e.target.closest('[data-copy]')) { try { await navigator.clipboard.writeText(PAY[cur].num); e.target.textContent = 'اتنسخ ✓'; } catch {} return; }
+    if (!e.target.closest('#done')) return;
+    const ref = $('ref').value.trim();
+    if (ref.length < 4) { $('err').textContent = 'اكتب رقم العملية (٤ أرقام على الأقل).'; return; }
+    const btn = $('done'); btn.disabled = true;
+    try {
+      await updateDoc(doc(db, 'invoices', inv.id), { status: 'review', refNo: ref, method: cur, payAt: serverTimestamp() });
+      Object.assign(inv, { status: 'review', refNo: ref, method: cur });
+      closeOv(); render();
+    } catch (ex) {
+      console.error(ex); btn.disabled = false;
+      $('err').textContent = ex.code === 'permission-denied' ? 'مش مسموح بالتحديث، راجع قواعد Firestore.' : 'حصلت مشكلة، حاول تاني.';
+    }
+  };
+}
+
+app.addEventListener('click', async e => {
+  const p = e.target.closest('[data-pay]');
+  if (p) return openPay(invs.find(i => i.id === p.dataset.pay));
+  const mk = e.target.closest('#mk');
+  if (mk) {
+    mk.disabled = true;
+    try {
+      const data = { uid: user.uid, email: user.email || '', courseId: cid, courseTitle: course.title, price: Number(course.price),
+        status: 'unpaid', serial: String(Math.floor(100000 + Math.random() * 900000)), createdAt: serverTimestamp() };
+      const ref = await addDoc(collection(db, 'invoices'), data);
+      const inv = { id: ref.id, ...data, createdAt: null, localAt: Date.now() };
+      invs.unshift(inv); render(); openPay(inv);
+    } catch (ex) {
+      console.error(ex); mk.disabled = false;
+      $('mkn').textContent = ex.code === 'permission-denied' ? 'مش مسموح بإنشاء فاتورة، راجع قواعد Firestore.' : 'حصلت مشكلة، حاول تاني.';
+    }
+  }
+});
+
+onAuthStateChanged(auth, async u => {
+  if (!cid) { app.innerHTML = '<p class="lock">مفيش كورس متحدد. <br><a href="index.html#courses">رجوع للكورسات</a></p>'; return; }
+  if (!u) { app.innerHTML = `<div class="lock">سجّل دخولك الأول عشان تصدر فاتورة وتشترك.<br><a href="login.html">تسجيل الدخول</a></div>`; return; }
+  user = u;
+  try {
+    const cs = await getDoc(doc(db, 'courses', cid));
+    if (!cs.exists()) { app.innerHTML = '<p class="lock">الكورس ده مش موجود.<br><a href="index.html#courses">رجوع للكورسات</a></p>'; return; }
+    course = { id: cs.id, ...cs.data() };
+    try {
+      const snap = await getDocs(query(collection(db, 'invoices'), where('uid', '==', u.uid)));
+      invs = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => dt(b) - dt(a));
+    } catch (ex) { console.warn(ex); }
+    render();
+  } catch (ex) {
+    console.error(ex);
+    app.innerHTML = '<p class="lock">تعذّر تحميل البيانات. حدّث الصفحة وجرّب تاني.</p>';
+  }
+});
+</script>
+</body>
+</html>

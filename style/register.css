@@ -1,0 +1,300 @@
+:root{
+  --g:#233D33;
+  --g2:#2c4a3e;
+  --gold:#E8B85A;
+  --cream:#FCFBF7;
+  --ink:#17261F;
+  --mut:#7B857F;
+  --line:#E4E3DC;
+  --rust:#A8541E;
+}
+
+*{box-sizing:border-box;margin:0}
+body{font-family:'Cairo',sans-serif;color:var(--ink);background:var(--cream);line-height:1.7}
+button,input,select{font:inherit}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ========== الصفحة ========== */
+.reg{min-height:100vh;display:flex;align-items:stretch}
+
+/* ========== الجانب اللي فيه الصورة ========== */
+.side{
+  flex:0 0 42%;
+  position:sticky;top:0;
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(77deg,#17255e,#2196F3);
+  border-radius:94px 0 0 57px;
+  padding:0 0 0 11px;              /* الحد الأزرق الرفيع */
+}
+.side img{
+  display:block;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:94px 0 0 57px;     /* نفس radius الأب */
+}
+
+/* ========== جانب الفورم ========== */
+.formside{
+  flex:1;min-width:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px 3%;
+}
+form{
+  width:100%;
+  max-width:720px;
+  margin:0;
+  background:#2196f317;
+  padding:22px;
+  border-radius:15px;
+}
+
+.eyebrow{color:var(--rust);font-weight:700;font-size:.85rem}
+h1{font-size:27px;font-weight:900;line-height:1.3;color:var(--g)}
+.sub{color:var(--mut);font-size:.92rem;margin-bottom:6px}
+h3{font-size:.8rem;font-weight:700;color:#4b5650;margin:16px 0 8px}
+
+/* ========== الشبكات والحقول ========== */
+.grid{display:grid;gap:14px;align-items:start}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+
+label{display:block;font-size:.85rem;font-weight:700}
+
+input,select{
+  display:block;
+  width:100%;
+  margin-top:5px;
+  height:48px;
+  padding:0 14px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  font-size:.9rem;
+  font-weight:400;
+  color:var(--ink);
+}
+input::placeholder{color:#9aa39e}
+input:focus,select:focus{
+  border-color:var(--g);
+  outline:0;
+  box-shadow:0 0 0 3px rgba(35,61,51,.12);
+}
+input[dir="ltr"]{text-align:right}   /* الأرقام تتكتب من اليمين */
+
+select{
+  appearance:none;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23555' stroke-width='2'%3E%3Cpath d='m2 5 5 5 5-5'/%3E%3C/svg%3E") no-repeat left 14px center;
+}
+
+/* ========== كلمة المرور ========== */
+.pw{position:relative}
+.pw input{padding-inline-end:84px}
+.pw button{
+  position:absolute;
+  inset-inline-end:12px;
+  top:50%;
+  transform:translateY(-35%);
+  background:none;border:0;
+  display:flex;align-items:center;gap:6px;
+  font-size:.78rem;font-weight:700;
+  cursor:pointer;color:var(--ink);
+}
+.pw svg{width:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+
+/* ========== الخطأ وزرار الإرسال ========== */
+.err{color:#c0392b;font-size:.85rem;font-weight:600;min-height:.4em;margin-top:8px}
+
+.submit{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:10px}
+.submit p{font-size:.78rem;color:var(--mut)}
+.submit a{text-decoration:underline;color:#3F51B5;font-weight:600}
+
+.go{
+  display:inline-flex;align-items:center;gap:30px;
+  background:var(--g);color:#fff;
+  border:0;border-radius:8px;
+  padding:10px 22px;
+  font-weight:700;cursor:pointer;
+  transition:background .15s;
+}
+.go:hover{background:var(--g2)}
+.go svg{width:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ========== التابلت والموبايل ========== */
+@media (max-width:900px){
+  .reg{flex-direction:column}
+  .side{
+    position:static;
+    flex:none;
+    height:240px;
+    border-radius:0 0 40px 40px;
+    padding:0;
+  }
+  .side img{border-radius:inherit}
+  .formside{padding:24px 16px}
+}
+
+@media (max-width:620px){
+  .g2,.g3{grid-template-columns:1fr}
+  .submit{flex-direction:column;align-items:stretch}
+  .go{justify-content:space-between}
+}
+
+@media (max-width:500px){
+  
+}
+/* =====================================================
+   شكل الموبايل: "ورقة" بتطلع فوق الصورة + أقسام مرقّمة
+   + زرار تسجيل ثابت تحت
+   ===================================================== */
+@media (max-width:620px){
+  body{background:#eee}
+  .reg{min-height:100vh}
+
+  /* الصورة فوق، والفورم بتغطي أسفلها زي ورقة */
+  .side{height:210px;border-radius:0;padding:0;background:none;display: none;}
+  .side img{border-radius:0;object-position:center 15%}
+
+  .formside{padding:0;align-items:flex-start}
+  form{
+        position: relative;
+        z-index: 2;
+        margin-top: -38px;
+        padding: 34px 20px 0;
+        background: var(--cream);
+        border-radius: 34px;
+        max-width: none;
+        min-height: calc(100vh - 172px);
+        counter-reset: s;
+        width: 90%;
+        margin: 20px 0px;
+  }
+  /* مقبض صغير دهبي فوق */
+  form::before{
+    content:"";position:absolute;top:12px;left:50%;
+    width:46px;height:5px;border-radius:9px;
+    background:var(--gold);transform:translateX(-50%);
+  }
+
+  .eyebrow{
+    display:inline-block;padding:1px 14px;border-radius:999px;
+    background:rgba(168,84,30,.1);color:var(--rust);
+  }
+  h1{font-size:1.65rem;margin-top:6px}
+
+  /* عناوين الأقسام مرقّمة بخط ممتد */
+  h3{
+    display:flex;align-items:center;gap:10px;
+    counter-increment:s;
+    margin:28px 0 6px;
+    font-size:14px;font-weight:900;color:var(--g);
+  }
+  h3::before{
+content: counter(s, arabic-indic);
+        flex: none;
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        background: #3f51b5;
+        color: #ffffff;
+        border-radius: 50% 50% 50% 8px;
+        font-weight: 700;
+        font-size: .95rem;
+  }
+  h3::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .grid{gap:0}
+  label{margin-top:12px;font-size:.78rem;color:var(--g)}
+
+  /* حقول مليانة بلون رملي دافي */
+  input,select{
+    height:50px;margin-top:6px;
+    padding:0 16px;
+    background-color:#2196f317;
+    border:2px solid transparent;
+    border-radius:16px;
+    font-size:1rem;
+  }
+  input::placeholder{color:#a19c8b}
+  input:focus,select:focus{
+    background-color:#fff;
+    border-color:var(--gold);
+    box-shadow:0 8px 20px rgba(232,184,90,.35);
+  }
+  input:valid:not(:placeholder-shown){border-color:rgba(35,61,51,.3)}
+  input[type="tel"]{letter-spacing:.1em;font-weight:500}
+
+  select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23233D33' stroke-width='2.4'%3E%3Cpath d='m2 5 5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:left 16px center;
+    padding-inline-end:40px;
+  }
+
+  /* زرار إظهار/إخفاء على شكل كبسولة */
+  .pw input{padding-inline-end:100px}
+  .pw button{
+           inset-inline-end: 10px;
+        transform: translateY(-35%);
+        background: #000000;
+        color: #fff;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 10px;
+  }
+
+  .err:not(:empty){
+    background:#fbe9e4;padding:8px 14px;border-radius:12px;margin-top:14px;
+  }
+
+  /* شريط التسجيل ثابت تحت الشاشة */
+  .submit{
+    flex-direction:column-reverse;align-items:stretch;gap:8px;
+    margin:22px -20px 0;
+    padding:26px 20px calc(14px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top,var(--cream) 70%,rgba(252,251,247,0));
+  }
+  .submit p{text-align:center;font-size:.72rem}
+  .submit a{color:var(--rust)}
+
+  .go{
+    justify-content:space-between;gap:12px;
+    padding:9px 24px 8px 24px;
+    border-radius:999px;font-size:1.05rem;
+    background:linear-gradient(100deg,var(--g),#3a6b57);
+    box-shadow:0 12px 26px rgba(35,61,51,.35);
+  }
+  .go svg{
+    width:40px;height:40px;padding:11px;border-radius:50%;
+    background:var(--gold);color:var(--g);
+  }
+}
+
+
+
+
+
+
+
+@media (max-width:400px){
+    h1 {
+        font-size: 1.25rem;
+        margin-top: 12px;
+    }
+    label {
+        margin-top: 5px;
+    }
+
+    input, select {
+        height: 47px;
+        margin-top: 6px;
+        padding: 0 16px;
+        background-color: #2196f317;
+        border: 2px solid transparent;
+        border-radius: 16px;
+        font-size: .9rem;
+    }
+
+  }

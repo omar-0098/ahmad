@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تسجيل الدخول | أحمد رمضان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/register.css">
+<style>
+  .alt{margin-top:18px;font-weight:600}
+  .alt a{color:inherit;text-decoration:underline;text-underline-offset:4px;font-weight:700}
+  .go:disabled{opacity:.7;cursor:wait}
+</style>
+</head>
+<body>
+<main class="reg">
+
+  <aside class="side" style="padding: 0 0 0 0 ;">
+    <img src="login.jpg" alt="">
+  </aside>
+
+  <section class="formside">
+    <form id="loginForm" novalidate>
+      <small class="eyebrow">تسجيل الدخول</small>
+      <h1>نورت تاني يا بطل!</h1>
+      <p class="sub">ادخل برقم موبايلك وكلمة المرور.</p>
+
+      <h3>بيانات الدخول</h3>
+      <label>رقم الطالب
+        <input name="sp" type="tel" inputmode="numeric" required pattern="01[0-9]{9}" placeholder="مثال: 010 0000 0000" dir="ltr" autocomplete="username">
+      </label>
+
+      <label>كلمة المرور
+        <div class="pw">
+          <input name="pw" id="pw" type="password" required placeholder="اكتب كلمة المرور" autocomplete="current-password">
+          <button type="button" id="tg">
+            <svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>إظهار</span>
+          </button>
+        </div>
+      </label>
+
+      <p class="err" id="err" role="alert"></p>
+
+      <div class="submit">
+        <p>مفيش حساب لسه؟ <a href="register.html">أنشئ حساب جديد</a></p>
+        <button class="go" type="submit"><span id="gl">دخول</span>
+          <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from "./js/firebase.js";
+  import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+  /* لو الطالب داخل بالفعل نوديه للرئيسية */
+  onAuthStateChanged(auth, u => { if (u) location.replace('index.html'); });
+
+  /* إظهار / إخفاء كلمة المرور */
+  const pw = document.getElementById('pw'), tg = document.getElementById('tg');
+  tg.addEventListener('click', () => {
+    const show = pw.type === 'password';
+    pw.type = show ? 'text' : 'password';
+    tg.querySelector('span').textContent = show ? 'إخفاء' : 'إظهار';
+  });
+
+  const f = document.getElementById('loginForm'), err = document.getElementById('err');
+  const btn = f.querySelector('.go'), gl = document.getElementById('gl');
+
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const bad = [...f.elements].find(x => x.name && !x.checkValidity());
+    if (bad) {
+      err.textContent = bad.name === 'pw' ? 'اكتب كلمة المرور.'
+        : 'اكتب رقم موبايل صحيح (١١ رقم بيبدأ بـ 01).';
+      bad.focus(); return;
+    }
+    err.textContent = '';
+    btn.disabled = true; gl.textContent = 'جاري الدخول...';
+
+    const d = Object.fromEntries(new FormData(f));
+    try {
+      await signInWithEmailAndPassword(auth, `${d.sp}@ahmed.app`, d.pw);
+      location.href = 'index.html';
+    } catch (ex) {
+      err.textContent =
+        ['auth/invalid-credential','auth/user-not-found','auth/wrong-password','auth/invalid-email'].includes(ex.code)
+          ? 'رقم الموبايل أو كلمة المرور غلط.'
+        : ex.code === 'auth/too-many-requests' ? 'محاولات كتير، استنى شوية وجرّب تاني.'
+        : ex.code === 'auth/network-request-failed' ? 'مفيش اتصال بالإنترنت.'
+        : /api-key/.test(ex.code || '') ? 'الـ apiKey في js/firebase.js غلط.'
+        : 'حصلت مشكلة، حاول تاني.';
+      console.error(ex);
+      btn.disabled = false; gl.textContent = 'دخول';
+    }
+  });
+</script>
+</body>
+</html>

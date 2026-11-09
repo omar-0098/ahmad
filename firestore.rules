@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == '01028604523@ahmed.app';
+    }
+
+    match /users/{uid} {
+      allow create: if request.auth != null && request.auth.uid == uid;
+      allow read:   if request.auth != null && (request.auth.uid == uid || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+  }
+}

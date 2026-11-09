@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الكورس | أحمد رمضان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/style.css">
+<style>
+main.cp{
+  --ink:#16213E;--board:#1E4A42;--marker:#FFC83D;--pen:#D7263D;--muted:#5B6678;--paper:#EDF2F4;
+  font-family:'Cairo',sans-serif;color:var(--ink);line-height:1.75;min-height:70vh;
+  background-color:var(--paper);
+  background-image:repeating-linear-gradient(transparent 0 35px,#d3dde3 35px 36px);
+}
+main.cp *{box-sizing:border-box}
+.cp .wrap{max-width:1120px;margin-inline:auto;padding-inline:20px}
+.cp .hide{display:none!important}
+.cp .state{text-align:center;padding:120px 20px;font-weight:700;color:var(--muted)}
+.cp .state a{color:var(--pen);text-decoration:underline}
+.cp .btn{
+  display:inline-block;border:2px solid var(--ink);background:transparent;color:var(--ink);
+  padding:12px 30px;border-radius:8px;font-weight:700;font-size:1.05rem;cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+}
+.cp .btn.solid{background:var(--marker);box-shadow:-4px 4px 0 var(--ink)}
+.cp .btn.solid:hover{box-shadow:-1px 1px 0 var(--ink);transform:translate(-3px,3px)}
+
+/* hero */
+.cp .hero1{padding-block:130px 25px}
+.cp .hero1-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.cp .hero1 h1{font-size:30px;font-weight:900;line-height:1.35;margin-bottom:18px}
+.cp .hero1 h1 span{background:linear-gradient(transparent 62%,var(--marker) 62% 92%,transparent 92%);padding-inline:4px}
+.cp .hero1 p{font-size:16px;max-width:30em;color:#34405a;white-space:pre-line}
+.cp .facts{list-style:none;padding:0;margin:22px 0 30px;display:grid;gap:6px;font-weight:600}
+.cp .facts li::before{content:"✓";color:var(--pen);font-weight:900;margin-inline-end:10px}
+.cp .cta{display:flex;flex-wrap:wrap;gap:14px}
+.cp .photo{position:relative;justify-self:center;width:min(398px)}
+.cp .photo .frame{
+    background: var(--board);
+    border-radius: 10px;
+    border: 8px solid #fff;
+    box-shadow: 0 10px 0 rgba(22, 33, 62, .12);
+    transform: rotate(2.5deg);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 34vh;
+}
+.cp .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cp .photo .tape{position:absolute;top:-14px;left:50%;translate:-50% 0;width:110px;height:30px;z-index:2;background:rgba(255,200,61,.75);transform:rotate(-3deg)}
+.cp .photo .note{
+  position:absolute;bottom:-22px;right:-18px;z-index:2;background:#fff;border:2px solid var(--ink);
+  padding:8px 14px;border-radius:4px;font-weight:700;font-size:.92rem;transform:rotate(-3deg);box-shadow:3px 3px 0 var(--ink);
+}
+
+/* lectures */
+.cp .lec{background:#F4F7F2;border-block:2px solid var(--ink);padding-block:50px}
+.cp .lec h2{font-size:2rem;font-weight:900;margin-bottom:22px}
+.cp .lgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:24px;align-items:start}
+.cp .player{background:#fff;border:2px solid var(--ink);border-radius:6px 18px 6px 18px;overflow:hidden}
+.cp .vid{aspect-ratio:16/9;background:#0b1020;display:grid;place-items:center;color:#fff;text-align:center;padding:20px}
+.cp .vid iframe,.cp .vid video{width:100%;height:100%;border:0;display:block}
+.cp .vid.pv{padding:0;display:block;background:#000;position:relative;overflow:hidden}
+.cp .vid.tall{aspect-ratio:auto;height:72vh;padding:0}
+.cp .vid.blk{aspect-ratio:auto;min-height:200px;background:#fff;color:var(--ink);font-weight:700}
+.cp .vid.blk img{max-width:100%;max-height:70vh}
+.cp .vid .ab{display:inline-block;margin:6px;padding:10px 22px;border:2px solid var(--ink);border-radius:8px;background:var(--marker);color:var(--ink);font-weight:700}
+.cp .pinfo{padding:18px 22px}
+.cp .pinfo h3{font-size:1.3rem;font-weight:900}
+.cp .pinfo p{color:var(--muted);margin-top:6px;white-space:pre-line}
+/* أثناء الامتحان القائمة تتقفل */
+.cp .list.exlock .li:not(.on){opacity:.45;cursor:not-allowed}
+/* ملخص الامتحانات + رسالة القفل */
+.cp .xsum{border:2px dashed var(--ink);border-radius:14px;background:#fff8e1;padding:8px 14px;font-weight:700}
+.cp .lk{background:#f3f5f9;border:2px dashed var(--ink);border-radius:12px;padding:14px;font-weight:700;text-align:center;line-height:1.8}
+/* قائمة الدروس: أقسام بشكل "كراسة وسبورة" */
+.cp .list{display:grid;gap:18px;align-content:start;max-height:640px;overflow:auto;padding:4px 6px 10px 10px}
+.cp .sg{background:#fff;border:2px solid var(--ink);border-radius:16px;box-shadow:-4px 4px 0 var(--ink);overflow:hidden;flex:none}
+.cp .sh{display:flex;gap:14px;align-items:center;width:100%;padding:14px 18px 14px 16px;border:0;background:var(--board);color:#fff;font:inherit;cursor:pointer;text-align:start;position:relative}
+.cp .sh::after{content:"";position:absolute;inset-inline:16px;bottom:7px;border-bottom:2px dashed rgba(255,255,255,.25)}
+.cp .sh:hover{background:#245a50}
+.cp .sno{flex:none;align-self:flex-start;margin-top:-14px;width:34px;height:46px;padding-top:9px;background:var(--marker);color:var(--ink);display:grid;place-items:start center;font-weight:900;clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%)}
+.cp .stt{flex:1;min-width:0;padding-bottom:8px}
+.cp .stt b{display:block;line-height:1.4;font-size:1.05rem}
+.cp .stt small{display:inline-block;margin-top:2px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,.14);color:#e6f2ee;font-weight:600}
+.cp .sh svg{flex:none;width:22px;height:22px;fill:none;stroke:var(--marker);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;transition:rotate .25s}
+.cp .sg.open .sh svg{rotate:180deg}
+.cp .sb{display:none;position:relative;padding:10px 14px 14px}
+.cp .sg.open .sb{display:block}
+.cp .sb::before{content:"";position:absolute;inset-block:34px;inset-inline-start:38px;border-inline-start:2px dashed #aab8c0}
+.cp .li{display:flex;align-items:center;gap:12px;width:100%;padding:8px 6px;border:0;border-radius:12px;background:none;font:inherit;text-align:start;cursor:pointer;color:var(--ink);position:relative}
+.cp .li:hover{background:#fff8e1}
+.cp .li.on{background:#fff1bf}
+.cp .li .n{position:relative;z-index:1;flex:none;width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;font-size:1.05rem}
+.cp .li.on .n{background:var(--marker)}
+.cp .li>span:nth-child(2){flex:1;min-width:0}
+.cp .li b{display:block;font-weight:700;line-height:1.5}
+.cp .li small{color:var(--muted)}
+.cp .li .kc{flex:none;font-size:.78rem;font-weight:700;padding:1px 12px;border:2px solid var(--ink);border-radius:999px;background:#fff}
+.cp .li.on .kc,.cp .li:hover .kc{background:var(--ink);color:#fff}
+.cp .nv{display:flex;gap:10px;margin-top:16px}
+.cp .nv button{flex:1;border:2px solid var(--ink);background:#fff;border-radius:8px;padding:8px;font:inherit;font-weight:700;cursor:pointer;color:var(--ink)}
+.cp .nv button:hover:not(:disabled){background:var(--marker)}
+.cp .nv button:disabled{opacity:.4;cursor:default}
+.cp .lock{background:#fff;border:2px dashed var(--ink);border-radius:12px;padding:28px;text-align:center;font-weight:700}
+.cp .lock .btn{margin-top:12px}
+:focus-visible{outline:3px solid #D7263D;outline-offset:3px}
+@media (max-width:820px){
+  .cp .hero1-grid,.cp .lgrid{grid-template-columns:1fr}
+  .cp .photo{order:-1;width:min(78%,300px)}
+}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="container bar">
+    <a class="brand" href="index.html">أحمد رمضان<small>لغة عربية · ثانوية عامة</small></a>
+    <div class="srch" id="srch">
+      <input id="q" type="search" placeholder="ابحث عن كورس" aria-label="ابحث عن كورس">
+      <button type="button" id="sb" aria-label="بحث"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+    </div>
+    <nav class="acct"><a href="login.html">تسجيل الدخول</a><a href="register.html" class="btn">حساب جديد</a></nav>
+  </div>
+</header>
+
+<main class="cp">
+  <p class="state" id="state">جاري تحميل الكورس...</p>
+
+  <div id="page" class="hide">
+    <section class="hero1">
+      <div class="wrap hero1-grid">
+        <div>
+          <h1 id="h-title"></h1>
+          <p id="h-desc"></p>
+          <ul class="facts" id="h-facts"></ul>
+          <div class="cta">
+            <a href="#lectures" class="btn solid">ابدأ المحاضرات</a>
+          </div>
+        </div>
+        <div class="photo">
+          <span class="tape"></span>
+          <div class="frame"><img id="h-img" alt="" class="hide"></div>
+          <div class="note hide" id="h-note"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lec" id="lectures">
+      <div class="wrap">
+        <h2>المحاضرات</h2>
+        <div id="lbody"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="container foot">
+    <div class="fcol fbrand">
+      <a class="brand" href="index.html">أحمد رمضان<small>لغة عربية · ثانوية عامة</small></a>
+      <p>شرح مبسط للنحو والبلاغة والأدب، وتدريب على نماذج الامتحانات لحد يوم الامتحان.</p>
+    </div>
+    <div class="fcol">
+      <h4>الصفحات</h4>
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#courses">الكورسات</a>
+      <a href="index.html#books">الكتب</a>
+      <a href="index.html#offer">ماذا نقدم</a>
+    </div>
+    <div class="fcol">
+      <h4>المساعدة</h4>
+      <a href="https://wa.me/201000000000" target="_blank" rel="noopener">تواصل معنا</a>
+    </div>
+  </div>
+  <div class="container legal"><span>© ٢٠٢٦ الأستاذ أحمد رمضان. جميع الحقوق محفوظة.</span><span>٠١٠٠٠٠٠٠٠٠٠٠</span></div>
+</footer>
+
+<script src="js/script.js"></script>
+<script type="module" src="js/auth-nav.js"></script>
+<script type="module">
+  import { auth, db } from "./js/firebase.js";
+  import { createPlayer, protectPage } from "./js/player.js";
+  import { runExam } from "./js/exam.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { doc, getDoc, setDoc, serverTimestamp, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const nf = n => Number(n).toLocaleString('ar-EG');
+  const id = new URLSearchParams(location.search).get('id');
+  const fail = m => { $('state').innerHTML = m + ' <a href="index.html#courses">رجوع للكورسات</a>'; };
+
+  /* يحوّل الرابط لشكل يتعرض جوه الصفحة */
+  function embed(u){
+    u = (u || '').trim();
+    let m = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/);
+    if (m) return { t:'f', s:`https://www.youtube-nocookie.com/embed/${m[1]}?rel=0` };
+    m = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    if (m) return { t:'f', s:`https://player.vimeo.com/video/${m[1]}` };
+    m = u.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+    if (m) return { t:'f', s:`https://drive.google.com/file/d/${m[1]}/preview` };
+    if (/^https?:\/\//.test(u)) return { t: /\.(mp4|webm|ogg)(\?|$)/i.test(u) ? 'v' : 'f', s:u };
+    return null;
+  }
+
+  const ACT = { video:'شاهد', pdf:'افتح', file:'حمّل', link:'افتح', text:'اقرأ', exam:'ابدأ' };
+  const KL = { video:'فيديو', pdf:'PDF', file:'ملف', link:'رابط', text:'نص' };
+
+  async function main(){
+    if (!id) return fail('الكورس مش موجود.');
+    let c, p = {};
+    try {
+      const cs = await getDoc(doc(db, 'courses', id));
+      if (!cs.exists() || !cs.data().visible) return fail('الكورس ده مش موجود أو لسه مش متاح.');
+      c = { id, ...cs.data() };
+    } catch (ex) { console.error(ex); return fail('تعذّر تحميل الكورس دلوقتي.'); }
+    try { const ps = await getDoc(doc(db, 'coursePages', id)); if (ps.exists()) p = ps.data(); } catch (ex) { console.error(ex); }
+
+    /* ===== الهيرو ===== */
+    const title = (p.heroTitle || c.title || '').trim();
+    let th = esc(title);
+    if (p.heroMark && title.includes(p.heroMark)) th = th.replace(esc(p.heroMark), `<span>${esc(p.heroMark)}</span>`);
+    $('h-title').innerHTML = th.replace(/\n/g, '<br>');
+    $('h-desc').textContent = p.heroDesc || (c.details || '').split(/\n/)[0] || '';
+    $('h-facts').innerHTML = (p.facts || '').split('\n').map(x => x.trim()).filter(Boolean).map(x => `<li>${esc(x)}</li>`).join('');
+    const img = p.image || c.image;
+    if (img) { const e = $('h-img'); e.src = img; e.classList.remove('hide'); e.onerror = () => e.remove(); }
+    if (p.note) { $('h-note').textContent = p.note; $('h-note').classList.remove('hide'); }
+    document.title = (c.title || 'الكورس') + ' | أحمد رمضان';
+    $('state').classList.add('hide'); $('page').classList.remove('hide');
+
+    /* ===== المحاضرات (للمسجّلين بس) ===== */
+    onAuthStateChanged(auth, async user => {
+      if (!user) {
+        $('lbody').innerHTML = '<div class="lock">سجّل دخولك الأول عشان تشوف محاضرات الكورس.<br><a class="btn solid" href="login.html">تسجيل الدخول</a></div>';
+        return;
+      }
+      $('lbody').innerHTML = '<p class="state" style="padding:40px">جاري تحميل المحاضرات...</p>';
+      const me = { name: '', phone: (user.email || '').split('@')[0] };
+      try { const us = await getDoc(doc(db, 'users', user.uid)); if (us.exists()) { me.name = us.data().student || ''; me.phone = us.data().studentPhone || me.phone; } } catch (ex) { console.warn(ex); }
+      protectPage();
+      let all = [];
+      try {
+        const sn = await getDocs(collection(db, 'courses', id, 'lectures'));
+        all = sn.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch (ex) { console.error(ex); $('lbody').innerHTML = '<div class="lock">تعذّر تحميل المحتوى دلوقتي.</div>'; return; }
+      const byOrd = (a, b) => (a.order || 0) - (b.order || 0);
+      const allSecs = all.filter(x => x.kind === 'session');
+      const secs = allSecs.filter(x => x.visible !== false).sort(byOrd);
+      const hiddenIds = new Set(allSecs.filter(x => x.visible === false).map(x => x.id));
+      const its = all.filter(x => x.kind !== 'session' && x.visible !== false && !hiddenIds.has(x.sessionId));
+      const groups = secs.map(s => ({ title: s.title, items: its.filter(x => x.sessionId === s.id).sort(byOrd) }));
+      const loose = its.filter(x => !x.sessionId || !allSecs.find(s => s.id === x.sessionId)).sort(byOrd);
+      if (loose.length) groups.push({ title: secs.length ? 'محتوى إضافي' : 'محتوى الكورس', items: loose });
+      const L = groups.flatMap(g => g.items);
+      if (!groups.length) { $('lbody').innerHTML = '<div class="lock">المحتوى هينزل قريبًا.</div>'; return; }
+
+      const ICON = { video: '🎬', pdf: '📄', file: '📎', link: '🔗', text: '📝', exam: '🎯' };
+      const CH = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+      const first = Math.max(0, groups.findIndex(g => g.items.length));
+      const gOf = []; groups.forEach((g, n) => g.items.forEach(() => gOf.push(n)));
+      const openG = new Set([first]);
+      let cur = -1, curPlayer = null;
+
+      /* ===== تقدّم الامتحانات + قفل الحصص ===== */
+      const lk = `exp:${user.uid}:${id}`;
+      let prog = {};
+      try { prog = JSON.parse(localStorage.getItem(lk) || '{}'); } catch {}
+      try {
+        const ps = await getDocs(collection(db, 'users', user.uid, 'examResults'));
+        ps.forEach(d => { const x = d.data(); if (x.courseId !== id) return; const o = prog[d.id] || {};
+          prog[d.id] = { courseId: id, best: Math.max(o.best || 0, x.best || 0), attempts: Math.max(o.attempts || 0, x.attempts || 0), passed: !!(o.passed || x.passed), last: x.last }; });
+      } catch (ex) { console.warn(ex); }
+      const isGate = x => x.kind === 'exam' && x.exam && x.exam.gate && Array.isArray(x.exam.questions) && x.exam.questions.length;
+      const blocker = n => { for (let k = 0; k < n; k++) { const b = groups[k].items.find(x => isGate(x) && !(prog[x.id] || {}).passed); if (b) return b; } return null; };
+      const lockedItem = i => !!blocker(gOf[i]);
+      const nextIdx = (i, d = 1) => { for (let j = i + d; j >= 0 && j < L.length; j += d) if (!lockedItem(j)) return j; return -1; };
+      const syncNav = () => { $('pv').disabled = cur < 0 || nextIdx(cur, -1) < 0; $('nx').disabled = cur < 0 || nextIdx(cur, 1) < 0; };
+
+      const renderList = () => {
+        let gi = 0;
+        const ex = L.filter(x => x.kind === 'exam'), ps = ex.filter(x => (prog[x.id] || {}).passed);
+        const bests = ex.map(x => (prog[x.id] || {}).best).filter(v => v != null);
+        const sum = ex.length ? `<div class="xsum">🎯 امتحانات اتجازت: <b>${nf(ps.length)}</b> من ${nf(ex.length)}${bests.length ? ` • متوسط درجاتك: <b>${nf(Math.round(bests.reduce((s, v) => s + v, 0) / bests.length))}٪</b>` : ''}</div>` : '';
+        $('ll').innerHTML = sum + groups.map((g, n) => {
+          const bl = blocker(n), base = gi; gi += g.items.length;
+          const body = bl ? `<div class="lk">🔒 الحصة دي مقفولة. انجح في «${esc(bl.title)}» بنسبة ${nf(bl.exam.passPct || 50)}٪ على الأقل عشان تتفتح.</div>`
+            : g.items.map((l, m) => {
+              const i = base + m, k = l.kind || 'video', pr = prog[l.id];
+              const sub = k === 'exam' ? `${nf((l.exam?.questions || []).length)} سؤال • نجاح ${nf(l.exam?.passPct || 50)}٪` : (l.duration || '');
+              const chip = k === 'exam' && pr ? (pr.passed ? `✅ ${nf(pr.best)}٪` : `${nf(pr.best)}٪`) : ACT[k];
+              return `<button type="button" class="li ${i === cur ? 'on' : ''}" data-i="${i}"><span class="n">${ICON[k]}</span><span><b>${esc(l.title)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span><span class="kc">${chip}</span></button>`;
+            }).join('');
+          return `<div class="sg ${openG.has(n) ? 'open' : ''}" data-g="${n}">
+            <button type="button" class="sh"><span class="sno">${n + 1}</span><span class="stt"><b>${esc(g.title)}</b><small>${bl ? '🔒 مقفولة' : g.items.length ? g.items.length + ' عنصر' : 'قريبًا'}</small></span>${CH}</button>
+            <div class="sb">${body}</div></div>`;
+        }).join('');
+      };
+      $('lbody').innerHTML = `<div class="lgrid">
+        <div class="player"><div class="vid" id="vid">${L.length ? '' : 'المحتوى هينزل قريبًا.'}</div>
+          <div class="pinfo"><h3 id="pt"></h3><p id="pd"></p>
+          <div class="nv"><button type="button" id="pv">→ السابق</button><button type="button" id="nx">التالي ←</button></div></div></div>
+        <div class="list" id="ll"></div>
+      </div>`;
+      renderList();
+      const finishExam = async (l, r) => {
+        const o = prog[l.id] || { best: 0, attempts: 0, passed: false };
+        const nw = { courseId: id, best: Math.max(o.best || 0, r.pct), attempts: (o.attempts || 0) + 1, passed: !!o.passed || r.passed, last: r.pct };
+        prog[l.id] = nw;
+        try { localStorage.setItem(lk, JSON.stringify(prog)); } catch {}
+        openG.add(gOf[cur]); renderList(); syncNav();
+        try { await setDoc(doc(db, 'users', user.uid, 'examResults', l.id), { ...nw, examTitle: l.title, updatedAt: serverTimestamp() }); } catch (ex) { console.warn(ex); }
+      };
+      const blobs = {};
+      const fetchFile = async (l, onp) => {
+        if (blobs[l.id]) return blobs[l.id];
+        const out = new Array(l.parts); let next = 0, done = 0;
+        const w = async () => { for (;;) { const n = next++; if (n >= l.parts) return;
+          const sn = await getDoc(doc(db, 'files', l.fileId, 'parts', String(n).padStart(5, '0')));
+          out[n] = sn.data().d.toUint8Array(); onp(++done / l.parts); } };
+        await Promise.all([w(), w(), w(), w()]);
+        return (blobs[l.id] = URL.createObjectURL(new Blob(out, { type: l.mime || '' })));
+      };
+      const YT = /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/;
+      let examLock = false;
+      const say = m => {
+        let t = $('xtoast');
+        if (!t) { t = document.createElement('div'); t.id = 'xtoast'; t.style.cssText = 'position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#16213E;color:#fff;padding:12px 20px;border-radius:12px;font-weight:700;z-index:300;display:none;max-width:90vw;text-align:center'; document.body.appendChild(t); }
+        t.textContent = m; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = 'none', 2600);
+      };
+      const setLock = v => { examLock = v; document.querySelector('.pinfo').style.display = v ? 'none' : ''; $('ll').classList.toggle('exlock', v); };
+      const play = async i => {
+        if (examLock) { say('⏳ خلّص الامتحان الأول وبعدين تقدر تنتقل'); return; }
+        setLock(false);
+        cur = i;
+        if (curPlayer) { curPlayer.destroy(); curPlayer = null; }
+        const l = L[i], k = l.kind || 'video', vid = $('vid');
+        let u = (l.url || '').trim();
+        document.querySelectorAll('#ll .li').forEach(b => b.classList.toggle('on', Number(b.dataset.i) === i));
+        const cb = document.querySelector(`#ll .li[data-i="${i}"]`); if (cb) cb.closest('.sg').classList.add('open');
+        openG.add(gOf[i]); syncNav();
+        $('pt').textContent = l.title; $('pd').textContent = l.desc || '';
+        vid.className = 'vid'; vid.innerHTML = '';
+        if (l.fileId && ['video', 'pdf', 'file'].includes(k)) {
+          vid.className = 'vid blk'; vid.textContent = 'جاري تحميل الملف 0%';
+          try { u = await fetchFile(l, p => { if (cur === i) vid.textContent = `جاري تحميل الملف ${Math.round(p * 100)}%`; }); }
+          catch (ex) { console.error(ex); if (cur === i) vid.textContent = 'تعذّر تحميل الملف.'; return; }
+          if (cur !== i) return;
+          vid.className = 'vid'; vid.innerHTML = '';
+        }
+        const open = t => `<a class="ab" href="${esc(u)}" target="_blank" rel="noopener" ${l.fileId ? `download="${esc(l.fileName || 'file')}"` : ''}>${t}</a>`;
+        if (k === 'exam') {
+          $('pd').textContent = '';
+          const ex = l.exam;
+          if (!ex || !Array.isArray(ex.questions) || !ex.questions.length) { vid.className = 'vid blk'; vid.textContent = 'الامتحان لسه مش جاهز.'; }
+          else {
+            vid.className = 'vid ex';
+            curPlayer = runExam(vid, ex, { title: l.title, desc: l.desc, key: `${user.uid}:${id}:${l.id}`, prior: prog[l.id] || null,
+              get hasNext(){ return nextIdx(i) >= 0; }, onLock: setLock, onFinish: r => finishExam(l, r), onNext: () => { const j = nextIdx(i); if (j >= 0) play(j); } });
+          }
+        }
+        else if (k === 'text') { vid.className = 'vid blk'; vid.textContent = '📝'; }
+        else if (k === 'link') { vid.className = 'vid blk'; vid.innerHTML = u ? `<div>🔗<br>${open('افتح الرابط')}</div>` : 'الرابط غير صالح.'; }
+        else if (k === 'file') {
+          vid.className = 'vid blk';
+          vid.innerHTML = (/^image\//.test(l.mime || '') || /\.(png|jpe?g|gif|webp)(\?|$)/i.test(u)) ? `<img src="${esc(u)}" alt="">` : `<div>📎<br>${esc(l.fileName || l.title)}<br>${open('تحميل / فتح الملف')}</div>`;
+        }
+        else if (k === 'pdf') {
+          const dm = u.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+          vid.className = 'vid tall';
+          vid.innerHTML = u ? `<iframe src="${esc(dm ? `https://drive.google.com/file/d/${dm[1]}/preview` : u)}" title="${esc(l.title)}"></iframe>` : 'الملف غير متاح.';
+        }
+        else {
+          const yt = !l.fileId && u.match(YT);
+          const e = l.fileId ? { t: 'v', s: u } : embed(u);
+          if (!e) vid.textContent = 'رابط الفيديو غير صالح.';
+          else {
+            vid.className = 'vid pv';
+            curPlayer = createPlayer(vid, yt ? { kind: 'youtube', ytId: yt[1], title: l.title, mark: me }
+              : e.t === 'v' ? { kind: 'html5', src: e.s, title: l.title, mark: me }
+              : { kind: 'iframe', src: e.s, title: l.title, mark: me });
+          }
+        }
+        if ((k === 'pdf' || k === 'file') && u) $('pd').innerHTML = esc(l.desc || '') + `<br><a href="${esc(u)}" target="_blank" rel="noopener" ${l.fileId ? `download="${esc(l.fileName || 'file')}"` : ''} style="color:#D7263D;font-weight:700">${l.fileId ? 'تحميل الملف' : 'فتح في تبويب جديد'}</a>`;
+      };
+      $('ll').addEventListener('click', e => {
+        const h = e.target.closest('.sh'); if (h) { const sg = h.parentElement, n = Number(sg.dataset.g); sg.classList.toggle('open'); sg.classList.contains('open') ? openG.add(n) : openG.delete(n); return; }
+        const b = e.target.closest('.li'); if (b) play(Number(b.dataset.i));
+      });
+      $('pv').addEventListener('click', () => { const j = nextIdx(cur, -1); if (j >= 0) play(j); });
+      $('nx').addEventListener('click', () => { const j = nextIdx(cur, 1); if (j >= 0) play(j); });
+      if (L.length) play(0);
+    });
+  }
+  main();
+</script>
+</body>
+</html>
