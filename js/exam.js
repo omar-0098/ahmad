@@ -213,10 +213,11 @@ export function runExam(host, exam, ctx){
   function finish(auto){
     if (S.screen === 'res') return;
     clearInterval(timer);
-    const n = S.run.length; let c = 0, w = 0, b = 0; const tp = {};
+    const n = S.run.length; let c = 0, w = 0, b = 0; const tp = {}, mist = [];
     S.run.forEach((q, k) => {
       const a = S.ans[k], ok = a >= 0 && q.opts[a].ok;
       if (a < 0) b++; else if (ok) c++; else w++;
+      if (!ok) mist.push({ n: k + 1, q: q.q, mine: a >= 0 ? q.opts[a].t : '', correct: (q.opts.find(o => o.ok) || {}).t || '', note: q.why || '' });
       if (q.topic) { const t = tp[q.topic] || (tp[q.topic] = { c: 0, n: 0 }); t.n++; if (ok) t.c++; }
     });
     const raw = c / n * 100, was = !!(prior && prior.passed);
@@ -224,7 +225,7 @@ export function runExam(host, exam, ctx){
     S.screen = 'res';
     clearS(); if (ctx.onLock) ctx.onLock(false);
     prior = { best: Math.max(prior ? prior.best || 0 : 0, S.result.pct), attempts: (prior ? prior.attempts || 0 : 0) + 1, passed: was || S.result.passed };
-    try { ctx.onFinish && ctx.onFinish({ pct: S.result.pct, correct: c, total: n, passed: S.result.passed }); } catch (ex) { console.error(ex); }
+    try { ctx.onFinish && ctx.onFinish({ pct: S.result.pct, correct: c, wrong: w, blank: b, total: n, secs: S.result.secs, passed: S.result.passed, mistakes: mist }); } catch (ex) { console.error(ex); }
     result();
   }
   function result(){
@@ -313,4 +314,4 @@ export function runExam(host, exam, ctx){
   const saved = loadS();
   if (saved) start(saved); else if (left() > 0) start(); else blocked();
   return { destroy(){ dead = true; clearInterval(timer); document.removeEventListener('keydown', onKey); host.innerHTML = ''; } };
-}   
+}

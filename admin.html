@@ -175,6 +175,16 @@
     .side small,.side .logo{display:none}.side .bot{margin:0}
     .nav{width:auto}.main{padding:16px}.stats{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}
   }
+  .bdg{background:#FA896B;color:#fff;border-radius:999px;padding:0 8px;font-size:.75rem;margin-inline-start:auto}
+  .fq{display:block;width:100%;text-align:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+  .fq:hover{border-color:var(--pri)}.fq h4{margin:6px 0 2px;font-size:1rem}.fq p{color:var(--muted);font-size:.85rem}
+  .fq .m{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--muted)}
+  .tag.red{background:#FDEDE8;color:#E2522E}.tag.grn{background:#E6FFFA;color:#0BB89A}
+  .frp{border-top:1px solid var(--line);padding:10px 0}.frp.v{background:#E6FFFA;border-radius:8px;padding:10px}
+  .fpic{max-width:100%;max-height:260px;border-radius:10px;margin-top:8px}
+  #fmod p,#fhead h3,.fq h4,.fq p{overflow-wrap:anywhere;word-break:break-word}
+  .vr-row{display:flex;gap:10px;align-items:center}.vr-time{font-weight:700;color:#E2522E}
+  .vr-audio{width:100%;margin-top:8px}.vr-err{color:#E2522E;font-size:.85rem;min-height:1.2em}
 </style>
 </head>
 <body>
@@ -188,6 +198,7 @@
     <button class="nav" data-go="courses">الكورسات</button>
     <button class="nav" data-go="books">الكتب</button>
     <button class="nav" data-go="users">المستخدمون</button>
+    <button class="nav" data-go="forum">منتدى الطلبة <span class="bdg hide" id="fbdg">0</span></button>
     <div class="bot">
       <small>الحساب</small>
       <a class="nav" href="profile.html">رجوع لحسابي</a>
@@ -254,6 +265,14 @@
       </div>
     </div>
 
+
+    <div class="card" id="forum" data-view="forum">
+      <div class="tools">
+        <h3>منتدى الطلبة</h3>
+        <select id="ffil" aria-label="تصفية"><option value="new">محتاجة رد</option><option value="all">كل الأسئلة</option><option value="pin">المثبّتة</option></select>
+      </div>
+      <div id="finbox"></div>
+    </div>
     <div class="card" id="users" data-view="users">
       <div class="tools">
         <h3>المستخدمون</h3>
@@ -434,8 +453,21 @@
     </div>
   </div>
 </div>
+<div class="mod" id="fmod">
+  <div class="mbox" style="max-width:640px">
+    <div id="fhead"></div>
+    <h3 style="margin:16px 0 6px">الردود</h3>
+    <div id="frep"></div>
+    <form id="frf" style="margin-top:12px">
+      <textarea id="frb" rows="3" placeholder="اكتب ردك كمدرس... (أو سجّل ردّ صوتي)" style="width:100%;font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px"></textarea>
+      <div id="fvoice" style="margin-top:10px"></div>
+      <div style="display:flex;gap:10px;margin-top:10px"><button class="btn" type="submit" id="frs">إرسال الرد</button><button class="btn g" type="button" id="fcl">إغلاق</button></div>
+    </form>
+  </div>
+</div>
 <div class="toast" id="toast" role="status"></div>
 
 <script type="module" src="js/admin.js"></script>
+<script type="module" src="js/admin-forum.js"></script>
 </body>
 </html>

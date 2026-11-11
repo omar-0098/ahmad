@@ -8,7 +8,9 @@
   --line:#E4E3DC;
   --rust:#A8541E;
 }
-
+body {
+    background: white !important;
+}
 *{box-sizing:border-box;margin:0}
 body{font-family:'Cairo',sans-serif;color:var(--ink);background:var(--cream);line-height:1.7}
 button,input,select{font:inherit}
@@ -19,6 +21,9 @@ a{color:inherit;text-decoration:none}
 .reg{min-height:100vh;display:flex;align-items:stretch}
 
 /* ========== الجانب اللي فيه الصورة ========== */
+header{
+  display: none;
+}
 .side{
   flex:0 0 42%;
   position:sticky;top:0;
@@ -135,7 +140,11 @@ select{
   .side img{border-radius:inherit}
   .formside{padding:24px 16px}
 }
-
+@media (max-width:868px){
+    header{
+    display: flex;
+  }
+}
 @media (max-width:620px){
   .g2,.g3{grid-template-columns:1fr}
   .submit{flex-direction:column;align-items:stretch}
@@ -157,7 +166,7 @@ select{
   .side{height:210px;border-radius:0;padding:0;background:none;display: none;}
   .side img{border-radius:0;object-position:center 15%}
 
-  .formside{padding:0;align-items:flex-start}
+  .formside{padding:0;}
   form{
         position: relative;
         z-index: 2;
@@ -169,7 +178,8 @@ select{
         min-height: calc(100vh - 172px);
         counter-reset: s;
         width: 90%;
-        margin: 20px 0px;
+        margin: 70px 0px 0px 0px;
+        box-shadow: 0px 0px 20px -14px black;
   }
   /* مقبض صغير دهبي فوق */
   form::before{
@@ -252,8 +262,9 @@ content: counter(s, arabic-indic);
   /* شريط التسجيل ثابت تحت الشاشة */
   .submit{
     flex-direction:column-reverse;align-items:stretch;gap:8px;
-    margin:22px -20px 0;
+    margin:0px -20px 0;
     padding:26px 20px calc(14px + env(safe-area-inset-bottom));
+  border-radius: 34px;
     background:linear-gradient(to top,var(--cream) 70%,rgba(252,251,247,0));
   }
   .submit p{text-align:center;font-size:.72rem}

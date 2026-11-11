@@ -90,12 +90,22 @@ main.cp *{box-sizing:border-box}
 .cp .sg.open .sh svg{rotate:180deg}
 .cp .sb{display:none;position:relative;padding:10px 14px 14px}
 .cp .sg.open .sb{display:block}
-.cp .sb::before{content:"";position:absolute;inset-block:34px;inset-inline-start:38px;border-inline-start:2px dashed #aab8c0}
+.cp .sb::before{content:"";position:absolute;inset-block:34px;inset-inline-start:41px;border-inline-start:2px dashed #aab8c0}
 .cp .li{display:flex;align-items:center;gap:12px;width:100%;padding:8px 6px;border:0;border-radius:12px;background:none;font:inherit;text-align:start;cursor:pointer;color:var(--ink);position:relative}
 .cp .li:hover{background:#fff8e1}
 .cp .li.on{background:#fff1bf}
-.cp .li .n{position:relative;z-index:1;flex:none;width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--ink);display:grid;place-items:center;font-size:1.05rem}
-.cp .li.on .n{background:var(--marker)}
+.cp .li .n{position:relative;z-index:1;flex:none;width:44px;height:44px;border-radius:14px;background:var(--t,#fff);color:var(--c,var(--ink));border:2px solid var(--ink);display:grid;place-items:center;box-shadow:-2px 2px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.cp .li .n svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cp .li:hover .n,.cp .li.on .n{transform:translate(-1px,1px);box-shadow:-1px 1px 0 var(--ink)}
+.cp .li.on .n{background:var(--c,var(--ink));color:#fff}
+.cp .li.k-video{--c:#D7263D;--t:#FDE3E6}
+.cp .li.k-pdf{--c:#C2410C;--t:#FFE8D6}
+.cp .li.k-file{--c:#1D5FD1;--t:#DDEAFF}
+.cp .li.k-link{--c:#0F766E;--t:#D5F3EE}
+.cp .li.k-text{--c:#6D3FC4;--t:#EBE1FB}
+.cp .li.k-exam{--c:#B7791F;--t:#FFEFC2}
+.cp .li .dur{display:flex;align-items:center;gap:5px;margin-top:2px;font-size:.82rem;font-weight:600;color:var(--muted)}
+.cp .li .dur svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .cp .li>span:nth-child(2){flex:1;min-width:0}
 .cp .li b{display:block;font-weight:700;line-height:1.5}
 .cp .li small{color:var(--muted)}
@@ -112,6 +122,242 @@ main.cp *{box-sizing:border-box}
   .cp .hero1-grid,.cp .lgrid{grid-template-columns:1fr}
   .cp .photo{order:-1;width:min(78%,300px)}
 }
+
+@media (max-width:500px){
+  .cp .lec {
+    padding-block:17px;
+}
+.cp .lec h2 {
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+.cp .pinfo h3 {
+    font-size: 13px;
+}
+.cp .pinfo {
+    padding: 8px 12px;
+}
+.cp .pinfo p {
+    margin-top: 2px;
+    font-size: 12px;
+}
+.cp .nv {
+    margin-top: 11px;
+}
+.cp .nv button {
+    padding: 5px;
+    font-size: 15px;
+}
+.cp .xsum {
+    padding: 6px 8px;
+    font-size: 13px;
+}
+.cp .stt b {
+    font-size: 14px;
+}
+.cp .stt small {    
+  margin-top: 0px;
+    font-size: 10px;
+}
+.cp .sno {
+    margin-top: -14px;
+    width: 30px;
+    height: 42px;
+    padding-top: 3px;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 75%, 0 85%);
+    font-size: 14px;
+}
+.cp .sh {
+    gap: 12px;
+    padding: 7px 17px 6px 11px;
+}
+.cp .li b {
+    font-size: 13px;
+}
+.cp .li .n {
+    width: 38px;
+    height: 38px;
+}
+.cp .sb {
+    padding: 8px 6px 8px;
+}
+
+.cp .li .dur {
+    gap: 3px;
+    margin-top: 1px;
+    font-size: 11px;
+}
+.cp .li small {
+    font-size: 11px;
+  }
+.pl-top{
+  display: none;
+}
+.xqt {
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
+}
+.xop {
+    gap: 7px !important;
+    padding: 6px 9px !important;
+}
+.xop i {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 12px !important;
+}
+.xop span {
+        font-size: 15px;
+ }
+.xf button {
+    padding: 6px 16px !important;
+    font-size: 13px !important;
+}
+.xh div{
+  font-size: 14px;
+}
+.xn .f::after {
+    top: -17px !important;
+    font-size: 21px !important;
+}
+.cp .btn {
+    padding: 7px 24px !important;
+    font-size: 16px !important;
+}
+.cp .hero1-grid {
+    gap: 36px;
+}
+.cp .hero1 {
+    padding-block: 114px 25px;
+}
+.cp .photo .tape {
+    top: -9px ;
+    left: 50% ;
+    width: 101px ;
+    height: 25px ;
+}
+.cp .hero1 h1 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+.cp .hero1 p {
+    font-size: 15px;
+}
+.xg b {
+    font-size: 21px !important;
+}
+.xg {
+    width: 136px !important;
+    height: 136px !important;
+}
+.xv {
+    font-size: 14px !important;
+    margin:8px 0 12px !important;
+}
+.xb.ok {
+    font-size: 13px !important;
+}
+.xm .xs2 {
+    font-size: 12px !important;
+}
+.xst span {
+    font-size: 12px !important;
+}
+.xr .xa button {
+    padding: 7px 18px !important;
+    font-size: 12px !important;
+}
+.xm h3 {
+    font-size: 17px !important;
+}
+.xflt button {
+    padding: 1px 13px !important;
+    font-size: 13px !important;
+}
+
+
+
+
+
+}
+
+
+
+
+
+
+@media (max-width:400px){
+    .cp .photo .tape {
+        top: -6px;
+        left: 50%;
+        width: 95px;
+        height: 19px;
+    }
+    .cp .hero1-grid {
+        gap: 27px;
+    }
+    .cp .hero1 h1 {
+        font-size: 19px;
+    }
+    .cp .hero1 {
+        padding-block: 107px 25px;
+    }
+    .cp .hero1 p {
+        font-size: 14px;
+    }
+    .cp .btn {
+        font-size: 15px !important;
+    }
+.cp .lec h2 {
+        font-size: 19px;
+        margin-bottom: 11px;
+    }
+.cp .li b {
+        font-size: 12px;
+    }
+.cp .li .n svg {
+    width: 20px;
+    height: 20px;
+}
+    .cp .li .n {
+        width: 36px;
+        height: 36px;
+    }
+.cp .li .kc {
+    font-size: 10px;
+}
+    .cp .li .dur {
+        margin-top: 0px;
+        font-size: 10px;
+    }
+.cp .wrap {
+    padding-inline: 8px;
+}
+.xrv .xop em {
+    font-size: 10px !important;
+}
+.xm .xs2 {
+    margin-bottom: 0px !important;
+    font-size: 11px !important;
+}
+    .xm {
+        padding: 16px 12px 0px !important;
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -184,9 +430,9 @@ main.cp *{box-sizing:border-box}
 <script type="module">
   import { auth, db } from "./js/firebase.js";
   import { createPlayer, protectPage } from "./js/player.js";
-  import { runExam } from "./js/exam.js";
+  import { runExam } from "./js/exam.js?v=2";
   import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-  import { doc, getDoc, setDoc, serverTimestamp, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+  import { doc, getDoc, setDoc, addDoc, serverTimestamp, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -259,7 +505,18 @@ main.cp *{box-sizing:border-box}
       const L = groups.flatMap(g => g.items);
       if (!groups.length) { $('lbody').innerHTML = '<div class="lock">المحتوى هينزل قريبًا.</div>'; return; }
 
-      const ICON = { video: '🎬', pdf: '📄', file: '📎', link: '🔗', text: '📝', exam: '🎯' };
+      const SV = p => `<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+      const ICON = {
+        video: SV('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10.5 9.5v5l4.2-2.5z" fill="currentColor"/>'),
+        pdf:   SV('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/>'),
+        file:  SV('<path d="M12 4v11"/><path d="m7.5 11 4.5 4.5 4.5-4.5"/><path d="M5 20h14"/>'),
+        link:  SV('<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'),
+        text:  SV('<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>'),
+        exam:  SV('<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="m9 14 2 2 4-4"/>')
+      };
+      const CLOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+      const ar = s => String(s).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+      const fmtDur = v => { v = String(v || '').trim(); if (!v) return ''; return /^\d+$/.test(v) ? `${ar(v)} دقيقة` : ar(v); };
       const CH = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
       const first = Math.max(0, groups.findIndex(g => g.items.length));
       const gOf = []; groups.forEach((g, n) => g.items.forEach(() => gOf.push(n)));
@@ -291,9 +548,9 @@ main.cp *{box-sizing:border-box}
           const body = bl ? `<div class="lk">🔒 الحصة دي مقفولة. انجح في «${esc(bl.title)}» بنسبة ${nf(bl.exam.passPct || 50)}٪ على الأقل عشان تتفتح.</div>`
             : g.items.map((l, m) => {
               const i = base + m, k = l.kind || 'video', pr = prog[l.id];
-              const sub = k === 'exam' ? `${nf((l.exam?.questions || []).length)} سؤال • نجاح ${nf(l.exam?.passPct || 50)}٪` : (l.duration || '');
+              const sub = k === 'exam' ? `${nf((l.exam?.questions || []).length)} سؤال • نجاح ${nf(l.exam?.passPct || 50)}٪` : (k === 'video' ? '' : (l.duration || '')), dur = k === 'video' ? fmtDur(l.duration) : '';
               const chip = k === 'exam' && pr ? (pr.passed ? `✅ ${nf(pr.best)}٪` : `${nf(pr.best)}٪`) : ACT[k];
-              return `<button type="button" class="li ${i === cur ? 'on' : ''}" data-i="${i}"><span class="n">${ICON[k]}</span><span><b>${esc(l.title)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span><span class="kc">${chip}</span></button>`;
+              return `<button type="button" class="li k-${k} ${i === cur ? 'on' : ''}" data-i="${i}"><span class="n">${ICON[k] || ICON.file}</span><span><b>${esc(l.title)}</b>${sub ? `<small>${esc(sub)}</small>` : ''}${dur ? `<span class="dur">${CLOCK}مدة الفيديو: ${esc(dur)}</span>` : ''}</span><span class="kc">${chip}</span></button>`;
             }).join('');
           return `<div class="sg ${openG.has(n) ? 'open' : ''}" data-g="${n}">
             <button type="button" class="sh"><span class="sno">${n + 1}</span><span class="stt"><b>${esc(g.title)}</b><small>${bl ? '🔒 مقفولة' : g.items.length ? g.items.length + ' عنصر' : 'قريبًا'}</small></span>${CH}</button>
@@ -314,6 +571,21 @@ main.cp *{box-sizing:border-box}
         try { localStorage.setItem(lk, JSON.stringify(prog)); } catch {}
         openG.add(gOf[cur]); renderList(); syncNav();
         try { await setDoc(doc(db, 'users', user.uid, 'examResults', l.id), { ...nw, examTitle: l.title, updatedAt: serverTimestamp() }); } catch (ex) { console.warn(ex); }
+        /* سجل كل محاولة: يظهر في صفحة الطالب (نتايج الامتحانات + مراجعة أخطائي) */
+        try {
+          await addDoc(collection(db, 'users', user.uid, 'exams'), {
+            lectureId: l.id, courseId: id, title: l.title || '', score: r.correct, total: r.total, pct: r.pct, passed: !!r.passed,
+            correct: r.correct, wrong: r.wrong || 0, blank: r.blank || 0, answered: r.total - (r.blank || 0),
+            secs: r.secs || 0, duration: Math.max(1, Math.round((r.secs || 0) / 60)),
+            mistakes: JSON.parse(JSON.stringify((r.mistakes || []).slice(0, 100))), takenAt: serverTimestamp()
+          });
+        } catch (ex) {
+          console.warn('exam log failed:', ex);
+          const d = document.createElement('div');
+          d.style.cssText = 'position:fixed;bottom:20px;inset-inline:20px;z-index:999;background:#B3261E;color:#fff;padding:12px 16px;border-radius:12px;font-weight:700;text-align:center;direction:rtl';
+          d.textContent = 'مقدرتش أحفظ تفاصيل الامتحان (' + (ex.code || ex.message) + ').';
+          document.body.appendChild(d); setTimeout(() => d.remove(), 12000);
+        }
       };
       const blobs = {};
       const fetchFile = async (l, onp) => {
@@ -359,8 +631,16 @@ main.cp *{box-sizing:border-box}
           if (!ex || !Array.isArray(ex.questions) || !ex.questions.length) { vid.className = 'vid blk'; vid.textContent = 'الامتحان لسه مش جاهز.'; }
           else {
             vid.className = 'vid ex';
-            curPlayer = runExam(vid, ex, { title: l.title, desc: l.desc, key: `${user.uid}:${id}:${l.id}`, prior: prog[l.id] || null,
+            curPlayer = runExam(vid, ex, { title: l.title, desc: l.desc, key: `${user.uid}:${id}:${l.id}`, autoStart: true, prior: prog[l.id] || null,
               get hasNext(){ return nextIdx(i) >= 0; }, onLock: setLock, onFinish: r => finishExam(l, r), onNext: () => { const j = nextIdx(i); if (j >= 0) play(j); } });
+            /* يفتح الامتحان على طول: يدوس على زرار "ابدأ" بتاع شاشة المقدمة لوحده */
+            let started = false;
+            const autoStart = () => {
+              if (started || cur !== i) return;
+              const b = [...vid.querySelectorAll('button, a')].find(x => /ابدأ|ابدا|ابتدي|start/i.test(x.textContent));
+              if (b) { started = true; b.click(); }
+            };
+            autoStart(); if (!started) requestAnimationFrame(autoStart); if (!started) setTimeout(autoStart, 150);
           }
         }
         else if (k === 'text') { vid.className = 'vid blk'; vid.textContent = '📝'; }

@@ -8,8 +8,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style/register.css">
+<link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+
+<header id="top">
+  <div class="container bar">
+    <a class="brand" href="#top">أحمد رمضان<small>لغة عربية · ثانوية عامة</small></a>
+    <div class="srch" id="srch">
+      <input id="q" type="search" placeholder="ابحث عن كورس" aria-label="ابحث عن كورس">
+      <button type="button" id="sb" aria-label="بحث"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+    </div>
+    <nav class="acct" id="acct"><a href="login.html">تسجيل الدخول</a><a href="register.html" class="btn">حساب جديد</a></nav>
+    <button type="button" class="menu-btn" id="menuBtn" aria-label="القائمة" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+
+
 <main class="reg">
 
   <aside class="side">
@@ -176,5 +192,7 @@
     }
   });
 </script>
+
+<script src="js/script.js"></script>
 </body>
 </html>

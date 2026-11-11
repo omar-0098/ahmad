@@ -1,3 +1,41 @@
+/* موبايل: قائمة الحساب + نافذة البحث */
+(function(){
+  var menuBtn=document.getElementById('menuBtn'),acct=document.getElementById('acct'),srch=document.getElementById('srch');
+  if(!menuBtn||!acct)return;
+  function closeMenu(){acct.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');}
+  menuBtn.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(srch)srch.classList.remove('open');
+    var o=acct.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded',o?'true':'false');
+  });
+  document.addEventListener('click',function(e){
+    if(!acct.contains(e.target)&&e.target!==menuBtn&&!menuBtn.contains(e.target))closeMenu();
+  });
+  if(srch){
+    /* الضغط على الخلفية الغامقة يقفل نافذة البحث */
+    srch.addEventListener('click',function(e){if(e.target===srch)srch.classList.remove('open');});
+    document.getElementById('sb').addEventListener('click',closeMenu);
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){closeMenu();if(srch)srch.classList.remove('open');}
+  });
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const hd = document.getElementById('top');
   const onScroll = () => hd.classList.toggle('solid', scrollY > 40);
   addEventListener('scroll', onScroll); onScroll();
@@ -33,5 +71,3 @@ const hd = document.getElementById('top');
   q.addEventListener('input', () => setTimeout(sync, 0)); sync();
 
 
-
-  

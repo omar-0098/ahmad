@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/style.css">
 <link rel="stylesheet" href="style/register.css">
 <style>
   .alt{margin-top:18px;font-weight:600}
@@ -15,6 +16,21 @@
 </style>
 </head>
 <body>
+
+
+<header id="top">
+  <div class="container bar">
+    <a class="brand" href="#top">أحمد رمضان<small>لغة عربية · ثانوية عامة</small></a>
+    <div class="srch" id="srch">
+      <input id="q" type="search" placeholder="ابحث عن كورس" aria-label="ابحث عن كورس">
+      <button type="button" id="sb" aria-label="بحث"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+    </div>
+    <nav class="acct" id="acct"><a href="login.html">تسجيل الدخول</a><a href="register.html" class="btn">حساب جديد</a></nav>
+    <button type="button" class="menu-btn" id="menuBtn" aria-label="القائمة" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+
 <main class="reg">
 
   <aside class="side" style="padding: 0 0 0 0 ;">
@@ -54,11 +70,16 @@
 </main>
 
 <script type="module">
-  import { auth } from "./js/firebase.js";
+  import { auth, db } from "./js/firebase.js";
   import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+  import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  let signing = false; // لحد ما نسجّل الدخول في السجل، ما نحوّلش الصفحة
 
   /* لو الطالب داخل بالفعل نوديه للرئيسية */
-  onAuthStateChanged(auth, u => { if (u) location.replace('index.html'); });
+  onAuthStateChanged(auth, u => { if (u && !signing) location.replace('index.html'); });
+
+  const device = () => { const u = navigator.userAgent, b = /Edg\//.test(u)?'Edge':/OPR\//.test(u)?'Opera':/Chrome\//.test(u)?'Chrome':/Firefox\//.test(u)?'Firefox':/Safari\//.test(u)?'Safari':'متصفح', o = /Android/.test(u)?'أندرويد':/iPhone|iPad/.test(u)?'iOS':/Windows/.test(u)?'ويندوز':/Mac/.test(u)?'ماك':/Linux/.test(u)?'لينكس':''; return b + (o ? ' · ' + o : ''); };
 
   /* إظهار / إخفاء كلمة المرور */
   const pw = document.getElementById('pw'), tg = document.getElementById('tg');
@@ -85,7 +106,15 @@
 
     const d = Object.fromEntries(new FormData(f));
     try {
-      await signInWithEmailAndPassword(auth, `${d.sp}@ahmed.app`, d.pw);
+      signing = true;
+      const cred = await signInWithEmailAndPassword(auth, `${d.sp}@ahmed.app`, d.pw);
+      /* نسجّل الدخول (التاريخ + الساعة + الجهاز) قبل التحويل، بحد أقصى ٣ ثواني */
+      try {
+        await Promise.race([
+          addDoc(collection(db, 'users', cred.user.uid, 'logins'), { at: serverTimestamp(), device: device() }),
+          new Promise(r => setTimeout(r, 3000))
+        ]);
+      } catch (e) { console.warn('login log failed:', e.code || e); }
       location.href = 'index.html';
     } catch (ex) {
       err.textContent =
@@ -95,10 +124,14 @@
         : ex.code === 'auth/network-request-failed' ? 'مفيش اتصال بالإنترنت.'
         : /api-key/.test(ex.code || '') ? 'الـ apiKey في js/firebase.js غلط.'
         : 'حصلت مشكلة، حاول تاني.';
-      console.error(ex);
+      console.error(ex); signing = false;
       btn.disabled = false; gl.textContent = 'دخول';
     }
   });
 </script>
+
+
+<script src="js/script.js"></script>
+
 </body>
 </html>

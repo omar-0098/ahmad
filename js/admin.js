@@ -584,7 +584,7 @@ $('csv').addEventListener('click', () => {
 });
 
 function show(v){
-  if (!['top','courses','books','users'].includes(v)) v = 'top';
+  if (!['top','courses','books','users','forum'].includes(v)) v = 'top';
   document.querySelectorAll('[data-view]').forEach(e => e.classList.toggle('on', e.dataset.view === v));
   document.querySelectorAll('[data-go]').forEach(b => b.classList.toggle('on', b.dataset.go === v));
   history.replaceState(null, '', '#' + v);
